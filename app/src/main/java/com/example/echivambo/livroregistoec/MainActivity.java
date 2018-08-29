@@ -151,7 +151,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText etObservacao;
     private Button bTransferidaPorPara;
 
+    private FirebaseDatabase firebaseDatabase;
     private DatabaseReference mDatabase;
+
     private String consultaPF_id;
 
     @Override
@@ -159,7 +161,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseDatabase.setPersistenceEnabled(true);
+        mDatabase = firebaseDatabase.getReference();
 
         toolbar = (Toolbar) findViewById(R.id.toolBar);
         toolbar.setTitle("Livro de Registo");

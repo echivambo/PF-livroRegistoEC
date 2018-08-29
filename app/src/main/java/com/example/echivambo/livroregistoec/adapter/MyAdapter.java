@@ -8,12 +8,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.echivambo.livroregistoec.R;
+import com.example.echivambo.livroregistoec.model.ConsultaPF;
 import com.example.echivambo.livroregistoec.model.auxiliar.UtentePF;
 
 import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
-    private ArrayList<UtentePF> mDataset;
+    private ArrayList<ConsultaPF> mDataset;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -34,7 +35,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(ArrayList<UtentePF> myDataset) {
+    public MyAdapter(ArrayList<ConsultaPF> myDataset) {
         mDataset = myDataset;
     }
 
@@ -51,9 +52,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.tvNomeUtente.setText(mDataset.get(position).getNome());
-        holder.tvNIDCSR.setText("NID CDR/PF: "+mDataset.get(position).getNidcsr());
-        holder.tvNIDTARV.setText("NID TARV: "+mDataset.get(position).getNidtarv());
-        holder.tvCodigo.setText("Codigo: "+mDataset.get(position).getCodigo());
+        holder.tvNIDCSR.setText("NID CDR/PF: "+mDataset.get(position).getNid_csr_pf());
+        holder.tvNIDTARV.setText("NID TARV: "+mDataset.get(position).getNid_csr_pf());
+        holder.tvCodigo.setText("Codigo: "+mDataset.get(position).getCodigo_consulta());
 
     }
 

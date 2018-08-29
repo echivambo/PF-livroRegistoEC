@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.example.echivambo.livroregistoec.adapter.MyAdapter;
 import com.example.echivambo.livroregistoec.model.Cabecalho;
+import com.example.echivambo.livroregistoec.model.ConsultaPF;
 import com.example.echivambo.livroregistoec.model.auxiliar.UtentePF;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -61,7 +62,7 @@ public class SeguimentoActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(getUtentes());
+        mAdapter = new MyAdapter(getConsultaPF());
         mRecyclerView.setAdapter(mAdapter);
 
         _searchButton.setOnClickListener(new View.OnClickListener() {
@@ -93,14 +94,8 @@ public class SeguimentoActivity extends AppCompatActivity {
         });
     }
 
-    private ArrayList<UtentePF> getUtentes(){
-        final ArrayList<UtentePF> lista = new ArrayList<>();
-        /*
-        lista.add(new UtentePF("Edna Manuel", "sssv", "kkks","cod1"));
-        lista.add(new UtentePF("Joana Zaida", "5555", "ffff","cod21"));
-        lista.add(new UtentePF("M Zaida", "44", "5","cod2"));
-        */
-
+    private ArrayList<ConsultaPF> getConsultaPF(){
+        final ArrayList<ConsultaPF> lista = new ArrayList<>();
         String usuarioPf = "LKr2u8zkIsTeeH2YKkb";
         Query myTopPostsQuery = mDatabase.child("cabecalho").child(usuarioPf)
                 .orderByChild("starCount");
@@ -110,7 +105,7 @@ public class SeguimentoActivity extends AppCompatActivity {
                 Cabecalho cabecalho = dataSnapshot.getValue(Cabecalho.class);
                 System.out.println("Leitura de dados (onChildAdded): "+cabecalho.getNid_csr_pf());
                 lista.add(new UtentePF("Edsna", cabecalho.getNid_csr_pf(), cabecalho.getNid_tarv(), cabecalho.getCodigo_consulta()));
-            }
+        }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
