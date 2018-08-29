@@ -64,6 +64,7 @@
                     android:drawablePadding="15dp"
                     android:textColor="#000"/>
 
+
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
