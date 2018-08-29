@@ -387,4 +387,42 @@ public class ConsultaPF {
 
           return result;
      }
+
+    @Override
+    public String toString() {
+        return "ConsultaPF{" +
+                "data_consulta='" + data_consulta + '\'' +
+                ", codigo_consulta='" + codigo_consulta + '\'' +
+                ", numero_consulta=" + numero_consulta +
+                ", nid_csr_pf='" + nid_csr_pf + '\'' +
+                ", nid_tarv='" + nid_tarv + '\'' +
+                ", parceiro_presente_na_csr_pf='" + parceiro_presente_na_csr_pf + '\'' +
+                ", nome='" + nome + '\'' +
+                ", sexo='" + sexo + '\'' +
+                ", faixa_etaria='" + faixa_etaria + '\'' +
+                ", residencia='" + residencia + '\'' +
+                ", contacto='" + contacto + '\'' +
+                ", rastreio_e_tratamento_de_its='" + rastreio_e_tratamento_de_its + '\'' +
+                ", outras_patologias='" + outras_patologias + '\'' +
+                ", fez_exame_clinico_da_mama='" + fez_exame_clinico_da_mama + '\'' +
+                ", exame_clinico_da_mama='" + exame_clinico_da_mama + '\'' +
+                ", tratado='" + tratado + '\'' +
+                ", transferida_ec='" + transferida_ec + '\'' +
+                ", seroestado_a_entrada_1a_csr_pf='" + seroestado_a_entrada_1a_csr_pf + '\'' +
+                ", teste_de_hiv_na_consulta_de_csr='" + teste_de_hiv_na_consulta_de_csr + '\'' +
+                ", tarv='" + tarv + '\'' +
+                ", testagem_do_parceiro='" + testagem_do_parceiro + '\'' +
+                ", fez_exameme_de_via='" + fez_exameme_de_via + '\'' +
+                ", resultado='" + resultado + '\'' +
+                ", crioterapia='" + crioterapia + '\'' +
+                ", transferida_ccu='" + transferida_ccu + '\'' +
+                ", estado_a_entrada_na_csr_pf='" + estado_a_entrada_na_csr_pf + '\'' +
+                ", resultado_do_teste_feito_na_csr_pf='" + resultado_do_teste_feito_na_csr_pf + '\'' +
+                ", tratamento_do_utente_dose_recebida='" + tratamento_do_utente_dose_recebida + '\'' +
+                ", parceiro_recebeu_tratamento_na_csr_pf='" + parceiro_recebeu_tratamento_na_csr_pf + '\'' +
+                ", transferida_por_para='" + transferida_por_para + '\'' +
+                ", observacao='" + observacao + '\'' +
+                ", user_id='" + user_id + '\'' +
+                '}';
+    }
 }

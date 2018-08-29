@@ -102,16 +102,16 @@ public class SeguimentoActivity extends AppCompatActivity {
         myTopPostsQuery.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Cabecalho cabecalho = dataSnapshot.getValue(Cabecalho.class);
-                System.out.println("Leitura de dados (onChildAdded): "+cabecalho.getNid_csr_pf());
-                lista.add(new UtentePF("Edsna", cabecalho.getNid_csr_pf(), cabecalho.getNid_tarv(), cabecalho.getCodigo_consulta()));
+                ConsultaPF consultaPF = dataSnapshot.getValue(ConsultaPF.class);
+                System.out.println("Leitura de dados (onChildAdded): "+consultaPF.toString());
+                lista.add(consultaPF);
         }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                Cabecalho cabecalho = dataSnapshot.getValue(Cabecalho.class);
-                System.out.println("Leitura de dados (onChildChanged): "+cabecalho.getNid_csr_pf());
-                lista.add(new UtentePF("Edsna", cabecalho.getNid_csr_pf(), cabecalho.getNid_tarv(), cabecalho.getCodigo_consulta()));
+                ConsultaPF consultaPF = dataSnapshot.getValue(ConsultaPF.class);
+                System.out.println("Leitura de dados (onChildChanged): "+consultaPF.toString());
+                lista.add(consultaPF);
             }
 
             @Override
