@@ -31,14 +31,6 @@ public class ConsultaPF {
      private String tratado;
      private String transferida_ec;
 
-     // public class PlaneamentoFamiliar {
-     private String utente_pf;
-     private String metodo_do_pf;
-     private String tipo_do_metodo_do_pf;
-     private String estado_da_utente_no_metodo;
-     private int total_distribuido;
-     private String metodo_anterior;
-
      //  public class RHIVSeguimento {
      private String seroestado_a_entrada_1a_csr_pf;
      private String teste_de_hiv_na_consulta_de_csr;
@@ -58,8 +50,7 @@ public class ConsultaPF {
      private String parceiro_recebeu_tratamento_na_csr_pf;
 
      //  public class TransferidaPorPara {
-     private String transferida_por;
-     private String transferida_para;
+     private String transferida_por_para;
      private String observacao;
 
      private String user_id;
@@ -67,7 +58,7 @@ public class ConsultaPF {
      public ConsultaPF() {
      }
 
-     public ConsultaPF(String data_consulta, String codigo_consulta, int numero_consulta, String nid_csr_pf, String nid_tarv, String parceiro_presente_na_csr_pf, String nome, String sexo, String faixa_etaria, String residencia, String contacto, String rastreio_e_tratamento_de_its, String outras_patologias, String fez_exame_clinico_da_mama, String exame_clinico_da_mama, String tratado, String transferida_ec, String utente_pf, String metodo_do_pf, String tipo_do_metodo_do_pf, String estado_da_utente_no_metodo, int total_distribuido, String metodo_anterior, String seroestado_a_entrada_1a_csr_pf, String teste_de_hiv_na_consulta_de_csr, String tarv, String testagem_do_parceiro, String fez_exameme_de_via, String resultado, String crioterapia, String transferida_ccu, String estado_a_entrada_na_csr_pf, String resultado_do_teste_feito_na_csr_pf, String tratamento_do_utente_dose_recebida, String parceiro_recebeu_tratamento_na_csr_pf, String transferida_por, String transferida_para, String observacao, String user_id) {
+     public ConsultaPF(String data_consulta, String codigo_consulta, int numero_consulta, String nid_csr_pf, String nid_tarv, String parceiro_presente_na_csr_pf, String nome, String sexo, String faixa_etaria, String residencia, String contacto, String rastreio_e_tratamento_de_its, String outras_patologias, String fez_exame_clinico_da_mama, String exame_clinico_da_mama, String tratado, String transferida_ec, String seroestado_a_entrada_1a_csr_pf, String teste_de_hiv_na_consulta_de_csr, String tarv, String testagem_do_parceiro, String fez_exameme_de_via, String resultado, String crioterapia, String transferida_ccu, String estado_a_entrada_na_csr_pf, String resultado_do_teste_feito_na_csr_pf, String tratamento_do_utente_dose_recebida, String parceiro_recebeu_tratamento_na_csr_pf, String transferida_por_para, String observacao, String user_id) {
           this.data_consulta = data_consulta;
           this.codigo_consulta = codigo_consulta;
           this.numero_consulta = numero_consulta;
@@ -85,12 +76,6 @@ public class ConsultaPF {
           this.exame_clinico_da_mama = exame_clinico_da_mama;
           this.tratado = tratado;
           this.transferida_ec = transferida_ec;
-          this.utente_pf = utente_pf;
-          this.metodo_do_pf = metodo_do_pf;
-          this.tipo_do_metodo_do_pf = tipo_do_metodo_do_pf;
-          this.estado_da_utente_no_metodo = estado_da_utente_no_metodo;
-          this.total_distribuido = total_distribuido;
-          this.metodo_anterior = metodo_anterior;
           this.seroestado_a_entrada_1a_csr_pf = seroestado_a_entrada_1a_csr_pf;
           this.teste_de_hiv_na_consulta_de_csr = teste_de_hiv_na_consulta_de_csr;
           this.tarv = tarv;
@@ -103,8 +88,7 @@ public class ConsultaPF {
           this.resultado_do_teste_feito_na_csr_pf = resultado_do_teste_feito_na_csr_pf;
           this.tratamento_do_utente_dose_recebida = tratamento_do_utente_dose_recebida;
           this.parceiro_recebeu_tratamento_na_csr_pf = parceiro_recebeu_tratamento_na_csr_pf;
-          this.transferida_por = transferida_por;
-          this.transferida_para = transferida_para;
+          this.transferida_por_para = transferida_por_para;
           this.observacao = observacao;
           this.user_id = user_id;
      }
@@ -245,54 +229,6 @@ public class ConsultaPF {
           this.transferida_ec = transferida_ec;
      }
 
-     public String getUtente_pf() {
-          return utente_pf;
-     }
-
-     public void setUtente_pf(String utente_pf) {
-          this.utente_pf = utente_pf;
-     }
-
-     public String getMetodo_do_pf() {
-          return metodo_do_pf;
-     }
-
-     public void setMetodo_do_pf(String metodo_do_pf) {
-          this.metodo_do_pf = metodo_do_pf;
-     }
-
-     public String getTipo_do_metodo_do_pf() {
-          return tipo_do_metodo_do_pf;
-     }
-
-     public void setTipo_do_metodo_do_pf(String tipo_do_metodo_do_pf) {
-          this.tipo_do_metodo_do_pf = tipo_do_metodo_do_pf;
-     }
-
-     public String getEstado_da_utente_no_metodo() {
-          return estado_da_utente_no_metodo;
-     }
-
-     public void setEstado_da_utente_no_metodo(String estado_da_utente_no_metodo) {
-          this.estado_da_utente_no_metodo = estado_da_utente_no_metodo;
-     }
-
-     public int getTotal_distribuido() {
-          return total_distribuido;
-     }
-
-     public void setTotal_distribuido(int total_distribuido) {
-          this.total_distribuido = total_distribuido;
-     }
-
-     public String getMetodo_anterior() {
-          return metodo_anterior;
-     }
-
-     public void setMetodo_anterior(String metodo_anterior) {
-          this.metodo_anterior = metodo_anterior;
-     }
-
      public String getSeroestado_a_entrada_1a_csr_pf() {
           return seroestado_a_entrada_1a_csr_pf;
      }
@@ -389,20 +325,12 @@ public class ConsultaPF {
           this.parceiro_recebeu_tratamento_na_csr_pf = parceiro_recebeu_tratamento_na_csr_pf;
      }
 
-     public String getTransferida_por() {
-          return transferida_por;
+     public String getTransferida_por_para() {
+          return transferida_por_para;
      }
 
-     public void setTransferida_por(String transferida_por) {
-          this.transferida_por = transferida_por;
-     }
-
-     public String getTransferida_para() {
-          return transferida_para;
-     }
-
-     public void setTransferida_para(String transferida_para) {
-          this.transferida_para = transferida_para;
+     public void setTransferida_por_para(String transferida_por_para) {
+          this.transferida_por_para = transferida_por_para;
      }
 
      public String getObservacao() {
@@ -441,12 +369,6 @@ public class ConsultaPF {
           result.put("exame_clinico_da_mama", exame_clinico_da_mama);
           result.put("tratado", tratado);
           result.put("transferida_ec", transferida_ec);
-          result.put("utente_pf", utente_pf);
-          result.put("metodo_do_pf", metodo_do_pf);
-          result.put("tipo_do_metodo_do_pf", tipo_do_metodo_do_pf);
-          result.put("estado_da_utente_no_metodo", estado_da_utente_no_metodo);
-          result.put("total_distribuido", total_distribuido);
-          result.put("metodo_anterior", metodo_anterior);
           result.put("seroestado_a_entrada_1a_csr_pf", seroestado_a_entrada_1a_csr_pf);
           result.put("teste_de_hiv_na_consulta_de_csr", teste_de_hiv_na_consulta_de_csr);
           result.put("tarv", tarv);
@@ -459,8 +381,7 @@ public class ConsultaPF {
           result.put("resultado_do_teste_feito_na_csr_pf", resultado_do_teste_feito_na_csr_pf);
           result.put("tratamento_do_utente_dose_recebida", tratamento_do_utente_dose_recebida);
           result.put("parceiro_recebeu_tratamento_na_csr_pf", parceiro_recebeu_tratamento_na_csr_pf);
-          result.put("transferida_por", transferida_por);
-          result.put("transferida_para", transferida_para);
+          result.put("transferida_por", transferida_por_para);
           result.put("observacao", observacao);
           result.put("user_id", user_id);
 

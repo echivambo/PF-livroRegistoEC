@@ -395,6 +395,7 @@
                         android:id="@+id/contacto"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="number"
                         android:background="@drawable/xml_editext"
                         android:maxLines="1"
                         android:layout_marginBottom="@dimen/margin_button"

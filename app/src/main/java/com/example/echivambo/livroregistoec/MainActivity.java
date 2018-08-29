@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import com.example.echivambo.livroregistoec.config.Config;
 import com.example.echivambo.livroregistoec.model.Cabecalho;
+import com.example.echivambo.livroregistoec.model.ConsultaPF;
 import com.example.echivambo.livroregistoec.model.DadosPessoais;
 import com.example.echivambo.livroregistoec.model.ExameClinico;
 import com.example.echivambo.livroregistoec.model.PlaneamentoFamiliar;
@@ -151,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button bTransferidaPorPara;
 
     private DatabaseReference mDatabase;
+    private String consultaPF_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -525,11 +527,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void savePF(){
         for (PlaneamentoFamiliar p : criarPlaneamentoFamiliar()) {
-            String key = mDatabase.child("planiamento_familiar").push().getKey();
+            String key = mDatabase.child("planiamento-familiar").push().getKey();
             Map<String, Object> postValues = p.toMap();
 
             Map<String, Object> childUpdates = new HashMap<>();
             childUpdates.put("/planiamento_familiar/" + key, postValues);
+            childUpdates.put("/consulta-vs-planiamento_familiar/" + consultaPF_id + "/" + key, postValues);
 
             mDatabase.updateChildren(childUpdates);
         }
@@ -1026,6 +1029,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //displayToast("Salvar");
 
                 try {
+                    /*
                     criarCabecalho();
                     criarDadosPessoais();
                     criarExameClinico();
@@ -1034,6 +1038,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     criarRTCancroColoUterino();
                     criaTransferidoPorPara();//////////////////////////////////////////////
                     savePF();
+                    */
+                    criarConsultaPF();
 
                     Util.showMessage(this, "Status de Registo", "Sessão registada com sucesso!");
                     //Toast.makeText(this, "Dados salvos com sucesso!", Toast.LENGTH_LONG).show();
@@ -1069,6 +1075,184 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void displayToast(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    ////////////////////////////////////////////////////////
+    private ConsultaPF getConsultaPF(){
+        String codigo_consulta = gerarCodigoConsulta();
+        String user_id = Config.USER_ID+"";
+
+        /*</CABECALHP>*/
+            // get selected radio button from radioGroup
+            int selectedId = rgParceiro_presente_na_csr_pf.getCheckedRadioButtonId();
+
+            // find the radiobutton by returned id
+            rbParceiro_presente_na_csr_pf = (RadioButton) findViewById(selectedId);
+
+            String data_consulta = etDataConsulta.getText().toString();
+            int numero_consulta = Integer.parseInt(etNumeroConsulta.getText().toString());
+            String nid_csr_pf = etNidCSRF.getText().toString();
+            String nid_tarv = etNidTarv.getText().toString();
+            String parceiro_presente_na_csr_pf = rbParceiro_presente_na_csr_pf.getText().toString();
+        /*</CABECALHP>*/
+
+        /*<DADOS PESSOAIS>*/
+            // get selected radio button from radioGroup
+            int selectedSexo = rgSexo.getCheckedRadioButtonId();
+            int selectedFaixaEtaria = rgFaixaEtaria.getCheckedRadioButtonId();
+
+            // find the radiobutton by returned id
+            rbSexo = (RadioButton) findViewById(selectedSexo);
+            rbFaixaEtaria = (RadioButton) findViewById(selectedFaixaEtaria);
+
+            String nome = etNome.getText().toString();
+            String sexo = rbSexo.getText().toString();
+            String faixa_etaria = rbFaixaEtaria.getText().toString();
+            String residencia = etResidencia.getText().toString();
+            String contacto = etContacto.getText().toString();
+        /*</DADOS PESSOAIS>*/
+
+        /*<EXAME CLINICO>*/
+        // get selected radio button from radioGroup
+        int selectedRastreioTratamento = rgRastreio_e_tratamento_de_its.getCheckedRadioButtonId();
+        int selectedTransferida = rgTransferida.getCheckedRadioButtonId();
+        int selectedFezExame = rgFez_exame_clinico_da_mama.getCheckedRadioButtonId();
+
+        // find the radiobutton by returned id
+        rbRastreio_e_tratamento_de_its = (RadioButton) findViewById(selectedRastreioTratamento);
+        rbTransferida = (RadioButton) findViewById(selectedTransferida);
+        RadioButton rbFez_exame_clinico_da_mama = (RadioButton) findViewById(selectedFezExame);
+
+        String rastreio_e_tratamento_de_its = rbRastreio_e_tratamento_de_its.getText().toString();
+        String outras_patologias = etOutras_patologias.getText().toString();
+        String fez_exame_clinico_da_mama = rbFez_exame_clinico_da_mama.getText().toString();
+        String transferida_ec = rbTransferida.getText().toString();
+
+        String exame_clinico_da_mama = exameDaMama.getTipo_exame_da_mama();
+        String tratado = exameDaMama.getTratado();
+        /*</EXAME CLINICO>*/
+
+
+        /*<RASTREIO E TRATAMENTO DE CANCRO DO COLO UTERINO>*/
+            // get selected radio button from radioGroup
+            int selectedFez_exameme_de_via = rgFez_exameme_de_via.getCheckedRadioButtonId();
+            int selectedCrioterapia = rgCrioterapia.getCheckedRadioButtonId();
+            int selectedTransferidaRTCCU = rgTransferidaRTCCU.getCheckedRadioButtonId();
+
+            // find the radiobutton by returned id
+            rbFez_exameme_de_via = (RadioButton) findViewById(selectedFez_exameme_de_via);
+            rbCrioterapia = (RadioButton) findViewById(selectedCrioterapia);
+            rbTransferidaRTCCU = (RadioButton) findViewById(selectedTransferidaRTCCU);
+
+            String fez_exameme_de_via = rbFez_exameme_de_via.getText().toString();
+
+            if (fez_exameme_de_via.equalsIgnoreCase("Não")) {
+                resultadoRastreioTratamentoCancroColoUterino = "";
+            }
+
+            String resultado = resultadoRastreioTratamentoCancroColoUterino;
+            String crioterapia = rbCrioterapia.getText().toString();
+            String transferida_ccu = rbTransferidaRTCCU.getText().toString();
+        /*</RASTREIO E TRATAMENTO DE CANCRO DO COLO UTERINO>*/
+
+
+        /*<RASTREIO E TRATAMENTO DA SÍFLIS>*/
+            // get selected radio button from radioGroup
+            int selectedEstado_a_entrada_na_csr_pf = rgEstado_a_entrada_na_csr_pf.getCheckedRadioButtonId();
+            int selectedResultado_do_teste_feito_na_csr_pf = rgResultado_do_teste_feito_na_csr_pf.getCheckedRadioButtonId();
+            int selectedTratamento_do_utente_dose_recebida = rgTratamento_do_utente_dose_recebida.getCheckedRadioButtonId();
+            int selectedParceiro_recebeu_tratamento_na_csr_pf = rgParceiro_recebeu_tratamento_na_csr_pf.getCheckedRadioButtonId();
+
+            // find the radiobutton by returned id
+            rbEstado_a_entrada_na_csr_pf = (RadioButton) findViewById(selectedEstado_a_entrada_na_csr_pf);
+            rbResultado_do_teste_feito_na_csr_pf = (RadioButton) findViewById(selectedResultado_do_teste_feito_na_csr_pf);
+            rbTratamento_do_utente_dose_recebida = (RadioButton) findViewById(selectedTratamento_do_utente_dose_recebida);
+            rbParceiro_recebeu_tratamento_na_csr_pf = (RadioButton) findViewById(selectedParceiro_recebeu_tratamento_na_csr_pf);
+
+            String estado_a_entrada_na_csr_pf = rbEstado_a_entrada_na_csr_pf.getText().toString();
+            String resultado_do_teste_feito_na_csr_pf = rbResultado_do_teste_feito_na_csr_pf.getText().toString();
+            String tratamento_do_utente_dose_recebida = rbTratamento_do_utente_dose_recebida.getText().toString();
+            String parceiro_recebeu_tratamento_na_csr_pf = rbParceiro_recebeu_tratamento_na_csr_pf.getText().toString();
+        /*</RASTREIO E TRATAMENTO DA SÍFLIS>*/
+
+        /*<RASTREIO DE HIV E SEGUIMENTO>*/
+            // get selected radio button from radioGroup
+            int selectedSeroestado_a_entrada_1a_csr_pf = rgSeroestado_a_entrada_1a_csr_pf.getCheckedRadioButtonId();
+            int selectedTeste_de_hiv_na_consulta_de_csr = rgTeste_de_hiv_na_consulta_de_csr.getCheckedRadioButtonId();
+            int selectedTarv = rgTarv.getCheckedRadioButtonId();
+            int selectedTestagem_do_parceiro = rgTestagem_do_parceiro.getCheckedRadioButtonId();
+
+            // find the radiobutton by returned id
+            rbSeroestado_a_entrada_1a_csr_pf = (RadioButton) findViewById(selectedSeroestado_a_entrada_1a_csr_pf);
+            rbTeste_de_hiv_na_consulta_de_csr = (RadioButton) findViewById(selectedTeste_de_hiv_na_consulta_de_csr);
+            rbTarv = (RadioButton) findViewById(selectedTarv);
+            rbTestagem_do_parceiro = (RadioButton) findViewById(selectedTestagem_do_parceiro);
+
+            String seroestado_a_entrada_1a_csr_pf = rbSeroestado_a_entrada_1a_csr_pf.getText().toString();
+            String teste_de_hiv_na_consulta_de_csr = rbTeste_de_hiv_na_consulta_de_csr.getText().toString();
+            String tarv = rbTarv.getText().toString();
+            String testagem_do_parceiro = rbTestagem_do_parceiro.getText().toString();
+        /*</RASTREIO DE HIV E SEGUIMENTO>*/
+
+        /*<TRANSFERIDO POR PARA>*/
+            // get selected radio button from radioGroup
+            int selectedTransferidaPorPara = rgTranferidoPorPara.getCheckedRadioButtonId();
+
+            // find the radiobutton by returned id
+            rbTranferidoPorPara = (RadioButton) findViewById(selectedTransferidaPorPara);
+
+            String transferidoPorPara = rbTranferidoPorPara.getText().toString();
+            String observacao = etObservacao.getText().toString();
+        /*<TRANSFERIDO POR PARA>*/
+
+            ConsultaPF consultaPF =new ConsultaPF(
+                    data_consulta,
+                    codigo_consulta,
+                    numero_consulta,
+                    nid_csr_pf,
+                    nid_tarv,
+                    parceiro_presente_na_csr_pf,
+                    nome,
+                    sexo,
+                    faixa_etaria,
+                    residencia,
+                    contacto,
+                    rastreio_e_tratamento_de_its,
+                    outras_patologias,
+                    fez_exame_clinico_da_mama,
+                    exame_clinico_da_mama,
+                    tratado,
+                    transferida_ec,
+                    seroestado_a_entrada_1a_csr_pf,
+                    teste_de_hiv_na_consulta_de_csr,
+                    tarv,
+                    testagem_do_parceiro,
+                    fez_exameme_de_via,
+                    resultado,
+                    crioterapia,
+                    transferida_ccu,
+                    estado_a_entrada_na_csr_pf,
+                    resultado_do_teste_feito_na_csr_pf,
+                    tratamento_do_utente_dose_recebida,
+                    parceiro_recebeu_tratamento_na_csr_pf,
+                    transferidoPorPara,
+                    observacao,
+                    user_id
+            );
+        return consultaPF;
+    }
+    //CONSULTA PF
+    private void criarConsultaPF() throws Exception {
+
+        //String key = mDatabase.child("consulta-de-pf").push().getKey();
+        consultaPF_id = mDatabase.child("consulta").push().getKey();
+        Map<String, Object> postValues = getConsultaPF().toMap();
+
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/consulta/" + consultaPF_id, postValues);
+
+        mDatabase.updateChildren(childUpdates);
+        savePF();
     }
 
 }
