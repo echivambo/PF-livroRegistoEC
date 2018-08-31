@@ -151,7 +151,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText etObservacao;
     private Button bTransferidaPorPara;
 
-    private FirebaseDatabase firebaseDatabase;
     private DatabaseReference mDatabase;
 
     private String consultaPF_id;
@@ -161,9 +160,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        firebaseDatabase.setPersistenceEnabled(true);
-        mDatabase = firebaseDatabase.getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         toolbar = (Toolbar) findViewById(R.id.toolBar);
         toolbar.setTitle("Livro de Registo");
@@ -1027,7 +1024,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return true;
 
             case R.id.action_sync:
-                displayToast("Sincronizar");
+                //displayToast("Sincronizar");
+
+                Intent intent = new Intent(this, ListaActivity.class);
+                startActivity(intent);
                 return true;
             case R.id.action_save: {
                 //displayToast("Salvar");
@@ -1083,10 +1083,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     ////////////////////////////////////////////////////////
     private ConsultaPF getConsultaPF(){
-        String codigo_consulta = gerarCodigoConsulta();
-        String user_id = Config.USER_ID+"";
+        ConsultaPF consultaPF = new ConsultaPF();
+        try {
+            String codigo_consulta = gerarCodigoConsulta();
+            String user_id = Config.USER_ID + "";
 
-        /*</CABECALHP>*/
+            /*</CABECALHP>*/
             // get selected radio button from radioGroup
             int selectedId = rgParceiro_presente_na_csr_pf.getCheckedRadioButtonId();
 
@@ -1098,9 +1100,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String nid_csr_pf = etNidCSRF.getText().toString();
             String nid_tarv = etNidTarv.getText().toString();
             String parceiro_presente_na_csr_pf = rbParceiro_presente_na_csr_pf.getText().toString();
-        /*</CABECALHP>*/
+            /*</CABECALHP>*/
 
-        /*<DADOS PESSOAIS>*/
+            /*<DADOS PESSOAIS>*/
             // get selected radio button from radioGroup
             int selectedSexo = rgSexo.getCheckedRadioButtonId();
             int selectedFaixaEtaria = rgFaixaEtaria.getCheckedRadioButtonId();
@@ -1114,30 +1116,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String faixa_etaria = rbFaixaEtaria.getText().toString();
             String residencia = etResidencia.getText().toString();
             String contacto = etContacto.getText().toString();
-        /*</DADOS PESSOAIS>*/
+            /*</DADOS PESSOAIS>*/
 
-        /*<EXAME CLINICO>*/
-        // get selected radio button from radioGroup
-        int selectedRastreioTratamento = rgRastreio_e_tratamento_de_its.getCheckedRadioButtonId();
-        int selectedTransferida = rgTransferida.getCheckedRadioButtonId();
-        int selectedFezExame = rgFez_exame_clinico_da_mama.getCheckedRadioButtonId();
+            /*<EXAME CLINICO>*/
+            // get selected radio button from radioGroup
+            int selectedRastreioTratamento = rgRastreio_e_tratamento_de_its.getCheckedRadioButtonId();
+            int selectedTransferida = rgTransferida.getCheckedRadioButtonId();
+            int selectedFezExame = rgFez_exame_clinico_da_mama.getCheckedRadioButtonId();
 
-        // find the radiobutton by returned id
-        rbRastreio_e_tratamento_de_its = (RadioButton) findViewById(selectedRastreioTratamento);
-        rbTransferida = (RadioButton) findViewById(selectedTransferida);
-        RadioButton rbFez_exame_clinico_da_mama = (RadioButton) findViewById(selectedFezExame);
+            // find the radiobutton by returned id
+            rbRastreio_e_tratamento_de_its = (RadioButton) findViewById(selectedRastreioTratamento);
+            rbTransferida = (RadioButton) findViewById(selectedTransferida);
+            RadioButton rbFez_exame_clinico_da_mama = (RadioButton) findViewById(selectedFezExame);
 
-        String rastreio_e_tratamento_de_its = rbRastreio_e_tratamento_de_its.getText().toString();
-        String outras_patologias = etOutras_patologias.getText().toString();
-        String fez_exame_clinico_da_mama = rbFez_exame_clinico_da_mama.getText().toString();
-        String transferida_ec = rbTransferida.getText().toString();
+            String rastreio_e_tratamento_de_its = rbRastreio_e_tratamento_de_its.getText().toString();
+            String outras_patologias = etOutras_patologias.getText().toString();
+            String fez_exame_clinico_da_mama = rbFez_exame_clinico_da_mama.getText().toString();
+            String transferida_ec = rbTransferida.getText().toString();
 
-        String exame_clinico_da_mama = exameDaMama.getTipo_exame_da_mama();
-        String tratado = exameDaMama.getTratado();
-        /*</EXAME CLINICO>*/
+            String exame_clinico_da_mama = exameDaMama.getTipo_exame_da_mama();
+            String tratado = exameDaMama.getTratado();
+            /*</EXAME CLINICO>*/
 
 
-        /*<RASTREIO E TRATAMENTO DE CANCRO DO COLO UTERINO>*/
+            /*<RASTREIO E TRATAMENTO DE CANCRO DO COLO UTERINO>*/
             // get selected radio button from radioGroup
             int selectedFez_exameme_de_via = rgFez_exameme_de_via.getCheckedRadioButtonId();
             int selectedCrioterapia = rgCrioterapia.getCheckedRadioButtonId();
@@ -1157,10 +1159,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String resultado = resultadoRastreioTratamentoCancroColoUterino;
             String crioterapia = rbCrioterapia.getText().toString();
             String transferida_ccu = rbTransferidaRTCCU.getText().toString();
-        /*</RASTREIO E TRATAMENTO DE CANCRO DO COLO UTERINO>*/
+            /*</RASTREIO E TRATAMENTO DE CANCRO DO COLO UTERINO>*/
 
 
-        /*<RASTREIO E TRATAMENTO DA SÍFLIS>*/
+            /*<RASTREIO E TRATAMENTO DA SÍFLIS>*/
             // get selected radio button from radioGroup
             int selectedEstado_a_entrada_na_csr_pf = rgEstado_a_entrada_na_csr_pf.getCheckedRadioButtonId();
             int selectedResultado_do_teste_feito_na_csr_pf = rgResultado_do_teste_feito_na_csr_pf.getCheckedRadioButtonId();
@@ -1177,9 +1179,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String resultado_do_teste_feito_na_csr_pf = rbResultado_do_teste_feito_na_csr_pf.getText().toString();
             String tratamento_do_utente_dose_recebida = rbTratamento_do_utente_dose_recebida.getText().toString();
             String parceiro_recebeu_tratamento_na_csr_pf = rbParceiro_recebeu_tratamento_na_csr_pf.getText().toString();
-        /*</RASTREIO E TRATAMENTO DA SÍFLIS>*/
+            /*</RASTREIO E TRATAMENTO DA SÍFLIS>*/
 
-        /*<RASTREIO DE HIV E SEGUIMENTO>*/
+            /*<RASTREIO DE HIV E SEGUIMENTO>*/
             // get selected radio button from radioGroup
             int selectedSeroestado_a_entrada_1a_csr_pf = rgSeroestado_a_entrada_1a_csr_pf.getCheckedRadioButtonId();
             int selectedTeste_de_hiv_na_consulta_de_csr = rgTeste_de_hiv_na_consulta_de_csr.getCheckedRadioButtonId();
@@ -1196,9 +1198,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String teste_de_hiv_na_consulta_de_csr = rbTeste_de_hiv_na_consulta_de_csr.getText().toString();
             String tarv = rbTarv.getText().toString();
             String testagem_do_parceiro = rbTestagem_do_parceiro.getText().toString();
-        /*</RASTREIO DE HIV E SEGUIMENTO>*/
+            /*</RASTREIO DE HIV E SEGUIMENTO>*/
 
-        /*<TRANSFERIDO POR PARA>*/
+            /*<TRANSFERIDO POR PARA>*/
             // get selected radio button from radioGroup
             int selectedTransferidaPorPara = rgTranferidoPorPara.getCheckedRadioButtonId();
 
@@ -1207,9 +1209,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             String transferidoPorPara = rbTranferidoPorPara.getText().toString();
             String observacao = etObservacao.getText().toString();
-        /*<TRANSFERIDO POR PARA>*/
+            /*<TRANSFERIDO POR PARA>*/
 
-            ConsultaPF consultaPF =new ConsultaPF(
+            consultaPF = new ConsultaPF(
                     data_consulta,
                     codigo_consulta,
                     numero_consulta,
@@ -1243,7 +1245,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     observacao,
                     user_id
             );
-        return consultaPF;
+            return consultaPF;
+        }catch (Exception e){
+
+        }finally {
+            return consultaPF;
+        }
     }
     //CONSULTA PF
     private void criarConsultaPF() throws Exception {
@@ -1255,8 +1262,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/consulta/" + consultaPF_id, postValues);
 
-        mDatabase.updateChildren(childUpdates);
-        savePF();
+        if(mDatabase.updateChildren(childUpdates).isSuccessful()) {
+            savePF();
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+        }
     }
 
 }

@@ -3,8 +3,10 @@ package com.example.echivambo.livroregistoec;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Rect;
 import android.nfc.Tag;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -23,9 +25,11 @@ import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -411,5 +415,48 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     }
                 });
     }
+
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_UP) {
+            final View view = getCurrentFocus();
+
+            if (view != null) {
+                final boolean consumed = super.dispatchTouchEvent(ev);
+
+                final View viewTmp = getCurrentFocus();
+                final View viewNew = viewTmp != null ? viewTmp : view;
+
+                if (viewNew.equals(view)) {
+                    final Rect rect = new Rect();
+                    final int[] coordinates = new int[2];
+
+                    view.getLocationOnScreen(coordinates);
+
+                    rect.set(coordinates[0], coordinates[1], coordinates[0] + view.getWidth(), coordinates[1] + view.getHeight());
+
+                    final int x = (int) ev.getX();
+                    final int y = (int) ev.getY();
+
+                    if (rect.contains(x, y)) {
+                        return consumed;
+                    }
+                } else if (viewNew instanceof EditText || viewNew instanceof EditText) {
+                    return consumed;
+                }
+
+                final InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                inputMethodManager.hideSoftInputFromWindow(viewNew.getWindowToken(), 0);
+
+                viewNew.clearFocus();
+
+                return consumed;
+
+            }
+        }
+
+        return super.dispatchTouchEvent(ev);
+    }
 }
+
 

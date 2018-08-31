@@ -1,13 +1,23 @@
 package com.example.echivambo.livroregistoec;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.echivambo.livroregistoec.adapter.MyAdapter;
 import com.example.echivambo.livroregistoec.model.Cabecalho;
@@ -28,8 +38,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SeguimentoActivity extends AppCompatActivity {
-    @BindView(R.id.fbSeguimento)
-    FloatingActionButton _searchButton;
+    private Toolbar toolbar;
+    @BindView(R.id.fbNewSession)
+    FloatingActionButton _newSessionButton;
+
+    @BindView(R.id.btnSearsh)
+    Button _searchButton;
+
+    @BindView(R.id.acNome)
+    AutoCompleteTextView _acNomeUtente;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -37,7 +54,7 @@ public class SeguimentoActivity extends AppCompatActivity {
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference mDatabase;
-    private List<UtentePF> lista;
+    private ArrayList<ConsultaPF> lista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +62,10 @@ public class SeguimentoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_seguimento);
         ButterKnife.bind(this);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        toolbar = (Toolbar) findViewById(R.id.toolBar);
+        toolbar.setTitle("Livro de Registo");
+        setSupportActionBar(toolbar);
+
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseDatabase.setPersistenceEnabled(true);
@@ -53,19 +73,20 @@ public class SeguimentoActivity extends AppCompatActivity {
 
         lista = new ArrayList<>();
 
+        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
+
+        // specify an adapter (see also next example)
+        mAdapter = new MyAdapter(this, lista);
+        mRecyclerView.setAdapter(mAdapter);
 
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(getConsultaPF());
-        mRecyclerView.setAdapter(mAdapter);
-
-        _searchButton.setOnClickListener(new View.OnClickListener() {
+        _newSessionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -73,65 +94,89 @@ public class SeguimentoActivity extends AppCompatActivity {
             }
         });
 
-        eventDatabase();
-    }
-
-    private void eventDatabase() {
-        mDatabase.child("cabecalho").addValueEventListener(new ValueEventListener() {
+        _searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                lista.clear();
-                for (DataSnapshot obj: dataSnapshot.getChildren()){
-                    Cabecalho cabecalho = obj.getValue(Cabecalho.class);
-                    System.out.println(cabecalho.toString());
+            public void onClick(View v) {
+
+                try {
+                    String nome = _acNomeUtente.getText().toString().toLowerCase();
+                    Query query = FirebaseDatabase.getInstance().getReference("consulta")
+                            .orderByChild("nome")
+                            .startAt(nome)
+                            .endAt(nome+"\uf8ff");
+                    query.addListenerForSingleValueEvent(valueEventListener);
+                }catch (NullPointerException e){
+                    Toast.makeText(getApplicationContext(),"Por favor preencha o campo!", Toast.LENGTH_LONG).show();
                 }
             }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
         });
+
+
+
     }
 
-    private ArrayList<ConsultaPF> getConsultaPF(){
-        final ArrayList<ConsultaPF> lista = new ArrayList<>();
-        String usuarioPf = "LKr2u8zkIsTeeH2YKkb";
-        Query myTopPostsQuery = mDatabase.child("cabecalho").child(usuarioPf)
-                .orderByChild("starCount");
-        myTopPostsQuery.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                ConsultaPF consultaPF = dataSnapshot.getValue(ConsultaPF.class);
-                System.out.println("Leitura de dados (onChildAdded): "+consultaPF.toString());
-                lista.add(consultaPF);
+    ValueEventListener valueEventListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            lista.clear();
+            if(dataSnapshot.exists()) {
+                for (DataSnapshot obj : dataSnapshot.getChildren()) {
+                    ConsultaPF consultaPF = obj.getValue(ConsultaPF.class);
+                    lista.add(consultaPF);
+                    System.out.println(consultaPF.toString());
+                }
+            }
+            mAdapter.notifyDataSetChanged();
         }
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                ConsultaPF consultaPF = dataSnapshot.getValue(ConsultaPF.class);
-                System.out.println("Leitura de dados (onChildChanged): "+consultaPF.toString());
-                lista.add(consultaPF);
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    };
+
+
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_UP) {
+            final View view = getCurrentFocus();
+
+            if (view != null) {
+                final boolean consumed = super.dispatchTouchEvent(ev);
+
+                final View viewTmp = getCurrentFocus();
+                final View viewNew = viewTmp != null ? viewTmp : view;
+
+                if (viewNew.equals(view)) {
+                    final Rect rect = new Rect();
+                    final int[] coordinates = new int[2];
+
+                    view.getLocationOnScreen(coordinates);
+
+                    rect.set(coordinates[0], coordinates[1], coordinates[0] + view.getWidth(), coordinates[1] + view.getHeight());
+
+                    final int x = (int) ev.getX();
+                    final int y = (int) ev.getY();
+
+                    if (rect.contains(x, y)) {
+                        return consumed;
+                    }
+                } else if (viewNew instanceof EditText || viewNew instanceof EditText) {
+                    return consumed;
+                }
+
+                final InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                inputMethodManager.hideSoftInputFromWindow(viewNew.getWindowToken(), 0);
+
+                viewNew.clearFocus();
+
+                return consumed;
+
             }
+        }
 
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-            // TODO: implement the ChildEventListener methods as documented above
-            // ...
-        });
-
-        return lista;
+        return super.dispatchTouchEvent(ev);
     }
 }
+
+

@@ -109,17 +109,4 @@ public class Cabecalho {
         return result;
     }
 
-    @Override
-    public String toString() {
-        return "Cabecalho{" +
-                "data_consulta='" + data_consulta + '\'' +
-                ", codigo_consulta='" + codigo_consulta + '\'' +
-                ", numero_consulta=" + numero_consulta +
-                ", nid_csr_pf='" + nid_csr_pf + '\'' +
-                ", nid_tarv='" + nid_tarv + '\'' +
-                ", parceiro_presente_na_csr_pf='" + parceiro_presente_na_csr_pf + '\'' +
-                ", status=" + status +
-                ", user_id=" + user_id +
-                '}';
-    }
 }

@@ -59,38 +59,38 @@ public class ConsultaPF {
      }
 
      public ConsultaPF(String data_consulta, String codigo_consulta, int numero_consulta, String nid_csr_pf, String nid_tarv, String parceiro_presente_na_csr_pf, String nome, String sexo, String faixa_etaria, String residencia, String contacto, String rastreio_e_tratamento_de_its, String outras_patologias, String fez_exame_clinico_da_mama, String exame_clinico_da_mama, String tratado, String transferida_ec, String seroestado_a_entrada_1a_csr_pf, String teste_de_hiv_na_consulta_de_csr, String tarv, String testagem_do_parceiro, String fez_exameme_de_via, String resultado, String crioterapia, String transferida_ccu, String estado_a_entrada_na_csr_pf, String resultado_do_teste_feito_na_csr_pf, String tratamento_do_utente_dose_recebida, String parceiro_recebeu_tratamento_na_csr_pf, String transferida_por_para, String observacao, String user_id) {
-          this.data_consulta = data_consulta;
-          this.codigo_consulta = codigo_consulta;
+          this.data_consulta = data_consulta.toLowerCase();
+          this.codigo_consulta = codigo_consulta.toLowerCase();
           this.numero_consulta = numero_consulta;
-          this.nid_csr_pf = nid_csr_pf;
-          this.nid_tarv = nid_tarv;
-          this.parceiro_presente_na_csr_pf = parceiro_presente_na_csr_pf;
-          this.nome = nome;
-          this.sexo = sexo;
-          this.faixa_etaria = faixa_etaria;
-          this.residencia = residencia;
-          this.contacto = contacto;
-          this.rastreio_e_tratamento_de_its = rastreio_e_tratamento_de_its;
-          this.outras_patologias = outras_patologias;
-          this.fez_exame_clinico_da_mama = fez_exame_clinico_da_mama;
-          this.exame_clinico_da_mama = exame_clinico_da_mama;
-          this.tratado = tratado;
-          this.transferida_ec = transferida_ec;
-          this.seroestado_a_entrada_1a_csr_pf = seroestado_a_entrada_1a_csr_pf;
-          this.teste_de_hiv_na_consulta_de_csr = teste_de_hiv_na_consulta_de_csr;
-          this.tarv = tarv;
-          this.testagem_do_parceiro = testagem_do_parceiro;
-          this.fez_exameme_de_via = fez_exameme_de_via;
-          this.resultado = resultado;
-          this.crioterapia = crioterapia;
-          this.transferida_ccu = transferida_ccu;
-          this.estado_a_entrada_na_csr_pf = estado_a_entrada_na_csr_pf;
-          this.resultado_do_teste_feito_na_csr_pf = resultado_do_teste_feito_na_csr_pf;
-          this.tratamento_do_utente_dose_recebida = tratamento_do_utente_dose_recebida;
-          this.parceiro_recebeu_tratamento_na_csr_pf = parceiro_recebeu_tratamento_na_csr_pf;
-          this.transferida_por_para = transferida_por_para;
-          this.observacao = observacao;
-          this.user_id = user_id;
+          this.nid_csr_pf = nid_csr_pf.toLowerCase();
+          this.nid_tarv = nid_tarv.toLowerCase();
+          this.parceiro_presente_na_csr_pf = parceiro_presente_na_csr_pf.toLowerCase();
+          this.nome = nome.toLowerCase();
+          this.sexo = sexo.toLowerCase();
+          this.faixa_etaria = faixa_etaria.toLowerCase();
+          this.residencia = residencia.toLowerCase();
+          this.contacto = contacto.toLowerCase();
+          this.rastreio_e_tratamento_de_its = rastreio_e_tratamento_de_its.toLowerCase();
+          this.outras_patologias = outras_patologias.toLowerCase();
+          this.fez_exame_clinico_da_mama = fez_exame_clinico_da_mama.toLowerCase();
+          this.exame_clinico_da_mama = exame_clinico_da_mama.toLowerCase();
+          this.tratado = tratado.toLowerCase();
+          this.transferida_ec = transferida_ec.toLowerCase();
+          this.seroestado_a_entrada_1a_csr_pf = seroestado_a_entrada_1a_csr_pf.toLowerCase();
+          this.teste_de_hiv_na_consulta_de_csr = teste_de_hiv_na_consulta_de_csr.toLowerCase();
+          this.tarv = tarv.toLowerCase();
+          this.testagem_do_parceiro = testagem_do_parceiro.toLowerCase();
+          this.fez_exameme_de_via = fez_exameme_de_via.toLowerCase();
+          this.resultado = resultado.toLowerCase();
+          this.crioterapia = crioterapia.toLowerCase();
+          this.transferida_ccu = transferida_ccu.toLowerCase();
+          this.estado_a_entrada_na_csr_pf = estado_a_entrada_na_csr_pf.toLowerCase();
+          this.resultado_do_teste_feito_na_csr_pf = resultado_do_teste_feito_na_csr_pf.toLowerCase();
+          this.tratamento_do_utente_dose_recebida = tratamento_do_utente_dose_recebida.toLowerCase();
+          this.parceiro_recebeu_tratamento_na_csr_pf = parceiro_recebeu_tratamento_na_csr_pf.toLowerCase();
+          this.transferida_por_para = transferida_por_para.toLowerCase();
+          this.observacao = observacao.toLowerCase();
+          this.user_id = user_id.toLowerCase();
      }
 
      public String getData_consulta() {

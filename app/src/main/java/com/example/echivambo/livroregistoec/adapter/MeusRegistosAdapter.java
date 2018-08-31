@@ -1,6 +1,5 @@
 package com.example.echivambo.livroregistoec.adapter;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,13 +9,11 @@ import android.widget.TextView;
 
 import com.example.echivambo.livroregistoec.R;
 import com.example.echivambo.livroregistoec.model.ConsultaPF;
-import com.example.echivambo.livroregistoec.model.auxiliar.UtentePF;
 
 import java.util.ArrayList;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+public class MeusRegistosAdapter extends RecyclerView.Adapter<MeusRegistosAdapter.MyViewHolder> {
     private ArrayList<ConsultaPF> mDataset;
-    private Context context;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -37,14 +34,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(Context context, ArrayList<ConsultaPF> myDataset) {
+    public MeusRegistosAdapter(ArrayList<ConsultaPF> myDataset) {
         mDataset = myDataset;
-        this.context = context;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public MyAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MeusRegistosAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View listItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.utentes_seguimento, parent,false);
         return new MyViewHolder(listItem);
     }
