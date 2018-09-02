@@ -100,11 +100,13 @@ public class SeguimentoActivity extends AppCompatActivity {
 
                 try {
                     String nome = _acNomeUtente.getText().toString().toLowerCase();
-                    Query query = FirebaseDatabase.getInstance().getReference("consulta")
-                            .orderByChild("nome")
-                            .startAt(nome)
-                            .endAt(nome+"\uf8ff");
-                    query.addListenerForSingleValueEvent(valueEventListener);
+                    if(!nome.isEmpty()) {
+                        Query query = FirebaseDatabase.getInstance().getReference("consulta")
+                                .orderByChild("nome")
+                                .startAt(nome)
+                                .endAt(nome + "\uf8ff");
+                        query.addListenerForSingleValueEvent(valueEventListener);
+                    }
                 }catch (NullPointerException e){
                     Toast.makeText(getApplicationContext(),"Por favor preencha o campo!", Toast.LENGTH_LONG).show();
                 }

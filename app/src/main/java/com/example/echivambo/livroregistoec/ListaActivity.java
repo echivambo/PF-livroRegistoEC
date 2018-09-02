@@ -63,7 +63,7 @@ public class ListaActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new MeusRegistosAdapter(getConsultaPF());
+        mAdapter = new MeusRegistosAdapter(this, getConsultaPF());
         mRecyclerView.setAdapter(mAdapter);
 
     }
