@@ -1,5 +1,8 @@
 package com.example.echivambo.livroregistoec.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
@@ -7,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @IgnoreExtraProperties
-public class ConsultaPF {
+public class ConsultaPF implements Parcelable{
      // public class Cabecalho {
      private String data_consulta;
      private String codigo_consulta;
@@ -92,6 +95,53 @@ public class ConsultaPF {
           this.observacao = observacao.toLowerCase();
           this.user_id = user_id.toLowerCase();
      }
+
+     protected ConsultaPF(Parcel in) {
+          data_consulta = in.readString();
+          codigo_consulta = in.readString();
+          numero_consulta = in.readInt();
+          nid_csr_pf = in.readString();
+          nid_tarv = in.readString();
+          parceiro_presente_na_csr_pf = in.readString();
+          nome = in.readString();
+          sexo = in.readString();
+          faixa_etaria = in.readString();
+          residencia = in.readString();
+          contacto = in.readString();
+          rastreio_e_tratamento_de_its = in.readString();
+          outras_patologias = in.readString();
+          fez_exame_clinico_da_mama = in.readString();
+          exame_clinico_da_mama = in.readString();
+          tratado = in.readString();
+          transferida_ec = in.readString();
+          seroestado_a_entrada_1a_csr_pf = in.readString();
+          teste_de_hiv_na_consulta_de_csr = in.readString();
+          tarv = in.readString();
+          testagem_do_parceiro = in.readString();
+          fez_exameme_de_via = in.readString();
+          resultado = in.readString();
+          crioterapia = in.readString();
+          transferida_ccu = in.readString();
+          estado_a_entrada_na_csr_pf = in.readString();
+          resultado_do_teste_feito_na_csr_pf = in.readString();
+          tratamento_do_utente_dose_recebida = in.readString();
+          parceiro_recebeu_tratamento_na_csr_pf = in.readString();
+          transferida_por_para = in.readString();
+          observacao = in.readString();
+          user_id = in.readString();
+     }
+
+     public static final Creator<ConsultaPF> CREATOR = new Creator<ConsultaPF>() {
+          @Override
+          public ConsultaPF createFromParcel(Parcel in) {
+               return new ConsultaPF(in);
+          }
+
+          @Override
+          public ConsultaPF[] newArray(int size) {
+               return new ConsultaPF[size];
+          }
+     };
 
      public String getData_consulta() {
           return data_consulta;
@@ -425,4 +475,45 @@ public class ConsultaPF {
                 ", user_id='" + user_id + '\'' +
                 '}';
     }
+
+     @Override
+     public int describeContents() {
+          return 0;
+     }
+
+     @Override
+     public void writeToParcel(Parcel parcel, int i) {
+          parcel.writeString(data_consulta);
+          parcel.writeString(codigo_consulta);
+          parcel.writeInt(numero_consulta);
+          parcel.writeString(nid_csr_pf);
+          parcel.writeString(nid_tarv);
+          parcel.writeString(parceiro_presente_na_csr_pf);
+          parcel.writeString(nome);
+          parcel.writeString(sexo);
+          parcel.writeString(faixa_etaria);
+          parcel.writeString(residencia);
+          parcel.writeString(contacto);
+          parcel.writeString(rastreio_e_tratamento_de_its);
+          parcel.writeString(outras_patologias);
+          parcel.writeString(fez_exame_clinico_da_mama);
+          parcel.writeString(exame_clinico_da_mama);
+          parcel.writeString(tratado);
+          parcel.writeString(transferida_ec);
+          parcel.writeString(seroestado_a_entrada_1a_csr_pf);
+          parcel.writeString(teste_de_hiv_na_consulta_de_csr);
+          parcel.writeString(tarv);
+          parcel.writeString(testagem_do_parceiro);
+          parcel.writeString(fez_exameme_de_via);
+          parcel.writeString(resultado);
+          parcel.writeString(crioterapia);
+          parcel.writeString(transferida_ccu);
+          parcel.writeString(estado_a_entrada_na_csr_pf);
+          parcel.writeString(resultado_do_teste_feito_na_csr_pf);
+          parcel.writeString(tratamento_do_utente_dose_recebida);
+          parcel.writeString(parceiro_recebeu_tratamento_na_csr_pf);
+          parcel.writeString(transferida_por_para);
+          parcel.writeString(observacao);
+          parcel.writeString(user_id);
+     }
 }

@@ -1,6 +1,7 @@
 package com.example.echivambo.livroregistoec.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.echivambo.livroregistoec.MainActivity;
 import com.example.echivambo.livroregistoec.R;
 import com.example.echivambo.livroregistoec.model.ConsultaPF;
 
@@ -31,11 +33,11 @@ public class MeusRegistosAdapter extends RecyclerView.Adapter<MeusRegistosAdapte
         public CardView cvRegistoSessao;
         public MyViewHolder(View itemView) {
             super(itemView);
-            tvNomeUtente = (TextView) itemView.findViewById(R.id.tvNomeUtente);
-            tvNIDCSR = (TextView) itemView.findViewById(R.id.tvNIDCSR);
-            tvNIDTARV = (TextView) itemView.findViewById(R.id.tvNIDTARV);
-            tvCodigo = (TextView) itemView.findViewById(R.id.tvCodigo);
-            cvRegistoSessao = (CardView) itemView.findViewById(R.id.cvRegistoSessao);
+            tvNomeUtente = (TextView) itemView.findViewById(R.id.tvNomeUtente1);
+            tvNIDCSR = (TextView) itemView.findViewById(R.id.tvNIDCSR1);
+            tvNIDTARV = (TextView) itemView.findViewById(R.id.tvNIDTARV1);
+            tvCodigo = (TextView) itemView.findViewById(R.id.tvCodigo1);
+            cvRegistoSessao = (CardView) itemView.findViewById(R.id.cvRegistoSessao1);
         }
     }
 
@@ -48,13 +50,13 @@ public class MeusRegistosAdapter extends RecyclerView.Adapter<MeusRegistosAdapte
     // Create new views (invoked by the layout manager)
     @Override
     public MeusRegistosAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View listItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.utentes_seguimento, parent,false);
+        View listItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.meus_registis, parent,false);
         return new MyViewHolder(listItem);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         final String codigoConsulta = mDataset.get(position).getCodigo_consulta();
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
@@ -66,7 +68,11 @@ public class MeusRegistosAdapter extends RecyclerView.Adapter<MeusRegistosAdapte
         holder.cvRegistoSessao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Clique e encontrei "+codigoConsulta, Toast.LENGTH_LONG);
+                Intent intent = new Intent(context, MainActivity.class);
+                intent.putExtra("consulta", mDataset.get(position));
+                context.startActivity(intent);
+
+                //  Toast.makeText(context, "Clique e encontrei "+codigoConsulta, Toast.LENGTH_LONG).show();
             }
         });
     }

@@ -24,35 +24,37 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class ListaActivity extends AppCompatActivity {
     private Toolbar toolbar;
-    private DatabaseReference mDatabase;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference mDatabase;
     private ArrayList<ConsultaPF> lista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista);
+
+        toolbar = (Toolbar) findViewById(R.id.toolBar);
+        toolbar.setTitle("Livro de Registo");
+        setSupportActionBar(toolbar);
+        lista = new ArrayList<>();
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        //firebaseDatabase.setPersistenceEnabled(true);
+       // mDatabase = firebaseDatabase.getReference();
+
+       // mDatabase = FirebaseDatabase.getInstance().getReference();
 /*
-        toolbar = (Toolbar) findViewById(R.id.toolBar);
-        toolbar.setTitle("Livro de Registo");
-        setSupportActionBar(toolbar);
-        toolbar.getMenu().getItem(R.id.action_save).setVisible(false);
-*/
-        toolbar = (Toolbar) findViewById(R.id.toolBar);
-        toolbar.setTitle("Livro de Registo");
-        setSupportActionBar(toolbar);
-
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
         mRecyclerView = (RecyclerView) findViewById(R.id.my_list_recycler_view);
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -65,10 +67,37 @@ public class ListaActivity extends AppCompatActivity {
         // specify an adapter (see also next example)
         mAdapter = new MeusRegistosAdapter(this, getConsultaPF());
         mRecyclerView.setAdapter(mAdapter);
+*/
+        ceateAdapter();
 
+        try {
+            mDatabase = FirebaseDatabase.getInstance().getReference("consulta");
+            mDatabase.addListenerForSingleValueEvent(valueEventListener);
+/*
+            Query query = FirebaseDatabase.getInstance().getReference("consulta")
+                    .orderByChild("user_id")
+                    .equalTo(LoginActivity.user_id);
+            query.addListenerForSingleValueEvent(valueEventListener);
+            */
+        }catch (Exception e){
+            Toast.makeText(this, "Erro ao ler registo \n"+e.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
+    public void ceateAdapter(){
+        mRecyclerView = (RecyclerView) this.findViewById(R.id.my_list_recycler_view);
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        mRecyclerView.setHasFixedSize(true);
 
+        // specify an adapter (see also next example)
+        mAdapter = new MeusRegistosAdapter(this, lista);
+        mRecyclerView.setAdapter(mAdapter);
+
+        // use a linear layout manager
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+    }
 
     ValueEventListener valueEventListener = new ValueEventListener() {
         @Override

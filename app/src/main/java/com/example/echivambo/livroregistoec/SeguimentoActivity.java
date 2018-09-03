@@ -73,18 +73,9 @@ public class SeguimentoActivity extends AppCompatActivity {
 
         lista = new ArrayList<>();
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        mRecyclerView.setHasFixedSize(true);
+        ceateAdapter();
 
-        // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(this, lista);
-        mRecyclerView.setAdapter(mAdapter);
-
-        // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
+       // mAdapter.setOnC
 
         _newSessionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +106,23 @@ public class SeguimentoActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public void ceateAdapter(){
+        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        mRecyclerView.setHasFixedSize(true);
+
+        // specify an adapter (see also next example)
+        mAdapter = new MyAdapter(this, lista);
+        mRecyclerView.setAdapter(mAdapter);
+
+        // use a linear layout manager
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+       // mAdapter
     }
 
     ValueEventListener valueEventListener = new ValueEventListener() {

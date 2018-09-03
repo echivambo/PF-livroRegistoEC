@@ -71,14 +71,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.cvRegistoSessao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString("numero_consulta", mDataset.get(position).getNumero_consulta()+"");
-
                 Intent intent = new Intent(context, MainActivity.class);
-                intent.putExtras(bundle);
+                intent.putExtra("consulta", mDataset.get(position));
                 context.startActivity(intent);
 
-                Toast.makeText(context, "Clique e encontrei "+codigoConsulta, Toast.LENGTH_LONG).show();
+              //  Toast.makeText(context, "Clique e encontrei "+codigoConsulta, Toast.LENGTH_LONG).show();
             }
         });
     }

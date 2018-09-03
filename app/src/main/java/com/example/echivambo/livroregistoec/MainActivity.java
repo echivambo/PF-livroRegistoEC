@@ -13,12 +13,14 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -30,6 +32,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.echivambo.livroregistoec.adapter.MyAdapter;
 import com.example.echivambo.livroregistoec.config.Config;
 import com.example.echivambo.livroregistoec.model.Cabecalho;
 import com.example.echivambo.livroregistoec.model.ConsultaPF;
@@ -197,6 +200,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         etContacto = (EditText) findViewById(R.id.contacto);
         rgSexo = (RadioGroup) findViewById(R.id.rgSexo);
         rgFaixaEtaria = (RadioGroup) findViewById(R.id.rgFaixaEtaria);
+
         //EXAME CLINICO
         rgRastreio_e_tratamento_de_its = (RadioGroup) findViewById(R.id.rgRastreio_tratamento_its);
         etOutras_patologias = (EditText) findViewById(R.id.etOutrasPatologias);
@@ -276,6 +280,78 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rExameDeViaSim.setOnClickListener(this);
         rOutroMetodo.setOnClickListener(this);
         cbPreservativo.setOnClickListener(this);
+
+        Intent intent = getIntent();
+        ConsultaPF consultaPF = intent.getParcelableExtra("consulta");
+        //Toast.makeText(this,"consulta "+consultaPF.getNumero_consulta(), Toast.LENGTH_LONG).show();
+        if (consultaPF!=null) {
+            etNumeroConsulta.setText((consultaPF.getNumero_consulta() + 1) + "");
+            etDataConsulta.setText(consultaPF.getData_consulta() + "");
+            etNidCSRF.setText(consultaPF.getNid_csr_pf());
+            etNidTarv.setText(consultaPF.getNid_tarv());
+            rgParceiro_presente_na_csr_pf.check(checkRB(rgParceiro_presente_na_csr_pf, consultaPF.getParceiro_presente_na_csr_pf()));
+
+            //DADOS PESSOAIS
+            etNome.setText(consultaPF.getNome());
+            etResidencia.setText(consultaPF.getResidencia());
+            etContacto.setText(consultaPF.getContacto());
+            rgSexo.check(checkRB(rgSexo, consultaPF.getSexo()));
+            rgFaixaEtaria.check(checkRB(rgFaixaEtaria, consultaPF.getFaixa_etaria()));
+
+            //EXAME CLINICO
+            rgRastreio_e_tratamento_de_its.check(checkRB(rgRastreio_e_tratamento_de_its, consultaPF.getRastreio_e_tratamento_de_its()));
+            etOutras_patologias.setText(consultaPF.getOutras_patologias());
+            rgTransferida.check(checkRB(rgTransferida, consultaPF.getTransferida_ec()));
+            rgFez_exame_clinico_da_mama.check(checkRB(rgFez_exame_clinico_da_mama, consultaPF.getFez_exame_clinico_da_mama()));
+
+            //RASTREAMENTO E TRATAMENTO DE CANCRO DO COLO UTERINO
+            rgFez_exameme_de_via.check(checkRB(rgFez_exameme_de_via, consultaPF.getFez_exameme_de_via()));
+            rgCrioterapia.check(checkRB(rgCrioterapia, consultaPF.getCrioterapia()));
+            rgTransferidaRTCCU.check(checkRB(rgTransferidaRTCCU, consultaPF.getTransferida_ccu()));
+
+            //RASTREAMENTO E TRATAMENTO DE SIFLIS
+            rgEstado_a_entrada_na_csr_pf.check(checkRB(rgEstado_a_entrada_na_csr_pf, consultaPF.getEstado_a_entrada_na_csr_pf()));
+            rgResultado_do_teste_feito_na_csr_pf.check(checkRB(rgResultado_do_teste_feito_na_csr_pf, consultaPF.getResultado_do_teste_feito_na_csr_pf()));
+            rgTratamento_do_utente_dose_recebida.check(checkRB(rgTratamento_do_utente_dose_recebida, consultaPF.getTratamento_do_utente_dose_recebida()));
+            rgParceiro_recebeu_tratamento_na_csr_pf.check(checkRB(rgParceiro_recebeu_tratamento_na_csr_pf, consultaPF.getParceiro_recebeu_tratamento_na_csr_pf()));
+
+            //RASTREAMENTO DE HIV E SEGUIMENTO
+            rgSeroestado_a_entrada_1a_csr_pf.check(checkRB(rgSeroestado_a_entrada_1a_csr_pf, consultaPF.getSeroestado_a_entrada_1a_csr_pf()));
+            rgTeste_de_hiv_na_consulta_de_csr.check(checkRB(rgTeste_de_hiv_na_consulta_de_csr, consultaPF.getTeste_de_hiv_na_consulta_de_csr()));
+            rgTarv.check(checkRB(rgTarv, consultaPF.getTarv()));
+            rgTestagem_do_parceiro.check(checkRB(rgTestagem_do_parceiro, consultaPF.getTestagem_do_parceiro()));
+
+            //TRANFERIDA POR PARA
+            etObservacao.setText(consultaPF.getObservacao());
+            rgTranferidoPorPara.check(checkRB(rgTranferidoPorPara, consultaPF.getTransferida_por_para()));
+            // Toast.makeText(this,"nr filhos "+checkRB(consultaPF.getParceiro_presente_na_csr_pf()),Toast.LENGTH_LONG).show();
+
+            //PLANEAMENTO FAMILIAR
+            rgUtentePF.check(rgUtentePF.getChildAt(1).getId());
+            /*rgMetodoPF = (RadioGroup) findViewById(R.id.rgMetodoPF);
+            cbPreservativo = (CheckBox) findViewById(R.id.cbPreservativo);
+            sMetodoAnterior = (Spinner) findViewById(R.id.sMetodoAnterior);*/
+        }
+    }
+
+    private int checkRB(RadioGroup radioGroup, String texto){
+       int nrRB = radioGroup.getChildCount();
+       RadioButton radioButton;
+       for (int i=0; i<nrRB; i++){
+           int rbID = radioGroup.getChildAt(i).getId();
+           radioButton = (RadioButton) findViewById(rbID);
+           if (radioButton.getText().toString().equalsIgnoreCase(texto)){
+                return rbID;
+           }
+       }
+       return -1;
+    }
+
+    private String validarCampos(EditText editText){
+        if(TextUtils.isEmpty(editText.getText().toString()))
+            return "";
+        else
+            return editText.getText().toString();
     }
 
     private String gerarCodigoConsulta(){
@@ -1045,7 +1121,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     */
                     criarConsultaPF();
 
-                    Util.showMessage(this, "Status de Registo", "Sessão registada com sucesso!");
+
                     //Toast.makeText(this, "Dados salvos com sucesso!", Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -1095,10 +1171,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // find the radiobutton by returned id
             rbParceiro_presente_na_csr_pf = (RadioButton) findViewById(selectedId);
 
-            String data_consulta = etDataConsulta.getText().toString();
-            int numero_consulta = Integer.parseInt(etNumeroConsulta.getText().toString());
-            String nid_csr_pf = etNidCSRF.getText().toString();
-            String nid_tarv = etNidTarv.getText().toString();
+            String data_consulta = validarCampos(etDataConsulta);
+            int numero_consulta = Integer.parseInt(validarCampos(etNumeroConsulta));
+            String nid_csr_pf = validarCampos(etNidCSRF);
+            String nid_tarv = validarCampos(etNidTarv);
             String parceiro_presente_na_csr_pf = rbParceiro_presente_na_csr_pf.getText().toString();
             /*</CABECALHP>*/
 
@@ -1111,11 +1187,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             rbSexo = (RadioButton) findViewById(selectedSexo);
             rbFaixaEtaria = (RadioButton) findViewById(selectedFaixaEtaria);
 
-            String nome = etNome.getText().toString();
+            String nome =  validarCampos(etNome);
             String sexo = rbSexo.getText().toString();
             String faixa_etaria = rbFaixaEtaria.getText().toString();
-            String residencia = etResidencia.getText().toString();
-            String contacto = etContacto.getText().toString();
+            String residencia = validarCampos(etResidencia);
+            String contacto = validarCampos(etContacto);
             /*</DADOS PESSOAIS>*/
 
             /*<EXAME CLINICO>*/
@@ -1208,7 +1284,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             rbTranferidoPorPara = (RadioButton) findViewById(selectedTransferidaPorPara);
 
             String transferidoPorPara = rbTranferidoPorPara.getText().toString();
-            String observacao = etObservacao.getText().toString();
+            String observacao =  validarCampos(etObservacao);
             /*<TRANSFERIDO POR PARA>*/
 
             consultaPF = new ConsultaPF(
@@ -1247,9 +1323,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             );
             return consultaPF;
         }catch (Exception e){
-
-        }finally {
-            return consultaPF;
+            return null;
         }
     }
     //CONSULTA PF
@@ -1264,7 +1338,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(mDatabase.updateChildren(childUpdates).isSuccessful()) {
             savePF();
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            Util.showMessage(this, "Status de Registo", "Sessão registada com sucesso!");
+            Intent intent = new Intent(this, ListaActivity.class);
+            startActivity(intent);
+        }else{
+            //Util.showMessage(this, "Status de Registo", "Erro ao salvar!!");
+            Intent intent = new Intent(this, ListaActivity.class);
             startActivity(intent);
         }
     }
