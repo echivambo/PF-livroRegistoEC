@@ -1,0 +1,1589 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#C6E0E4"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <include
+        layout="@layout/toolbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+
+
+            <Button
+                android:id="@+id/expandableButton1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#105945"
+                android:drawableRight="@android:drawable/arrow_down_float"
+                android:onClick="expandableButton1"
+                android:paddingRight="10dp"
+                android:shadowColor="#003EA8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="Cabeçalho "
+                android:textColor="#fff" />
+
+
+            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                android:id="@+id/expandableLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/expandableButton1"
+                android:background="#E8FDFF"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                app:ael_expanded="false"
+                app:ael_interpolator="accelerate">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingTop="16dp">
+
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/lDataDaConsulta"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvDataConsulta"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="5dp"
+                                android:text="Data da Consulta:"
+                                android:textSize="19dp" />
+
+
+                            <EditText
+                                android:id="@+id/dataDaConsulta"
+                                android:layout_width="200dp"
+                                android:layout_height="40dp"
+                                android:layout_marginTop="2dp"
+                                android:background="@android:drawable/btn_dropdown"
+                                android:focusable="false"
+                                android:inputType="date"
+                                android:textColor="#000000">
+
+                            </EditText>
+                        </LinearLayout>
+
+
+                        <TextView
+                            android:id="@+id/tvNumeroConsulta"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginTop="5dp"
+                            android:text="№ da consulta:"
+                            android:textSize="17dp" />
+
+
+                        <EditText
+                            android:id="@+id/etNumeroConsulta"
+                            android:layout_width="80dp"
+                            android:layout_height="25dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="30dp"
+                            android:background="@drawable/xml_editext"
+                            android:inputType="number"
+                            android:textColor="#000000"
+                            android:textSize="14dp">
+
+                        </EditText>
+                    </RelativeLayout>
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="NID CSR/PF: "
+                        android:textSize="19dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=" Número de Identificação do doente para Consulta de Saude Sexual Reprodutiva / Planeamento Familiar"
+                        android:textSize="13dp" />
+
+
+                    <EditText
+                        android:id="@+id/etNid_csr_pf"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:background="@drawable/xml_editext"
+                        android:maxLines="1"
+                        android:textColor="#000000">
+
+                    </EditText>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="NID TARV:"
+                        android:textSize="19dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=" Número de Identificação do doente para  Tratamento Antiretroviral"
+                        android:textSize="13dp" />
+
+
+                    <EditText
+                        android:id="@+id/etNid_tarv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:background="@drawable/xml_editext"
+                        android:maxLines="1"
+                        android:textColor="#000000" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Parceiro presente na CSR/PF:"
+                        android:textSize="19dp" />
+
+
+                    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/rgParceiro_presente_na_csr_pf"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/parceiroPresente"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sim" />
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/parceiroAusente"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin_button"
+                            android:text="Não" />
+                        <!-- android:onClick="onRadioButtonClicked"/> -->
+
+                    </RadioGroup>
+
+                    <!--
+                                        <RelativeLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content">
+                                            <Button
+                                                android:id="@+id/bSaveCabecalho"
+                                                android:layout_width="38dp"
+                                                android:layout_height="33dp"
+                                                android:layout_alignParentRight="true"
+                                                android:layout_marginTop="15dp"
+                                                android:background="@drawable/save"
+                                                android:text="Salvar"
+                                                android:textSize="8sp"
+                                                android:layout_marginBottom="10dp"/>
+
+                                        </RelativeLayout>
+                    -->
+
+                </LinearLayout>
+
+            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+
+            <Button
+                android:id="@+id/expandableButton2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/expandableLayout1"
+                android:background="#126850"
+                android:drawableRight="@android:drawable/arrow_down_float"
+                android:onClick="expandableButton2"
+                android:paddingRight="10dp"
+                android:shadowColor="#003EA8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="Dados pessoais"
+                android:textColor="#fff" />
+
+
+            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                android:id="@+id/expandableLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/expandableButton2"
+                android:background="#E8FDFF"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                app:ael_expanded="false"
+                app:ael_interpolator="accelerate">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingTop="16dp">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Nome:"
+                        android:textSize="19dp" />
+
+                    <EditText
+                        android:id="@+id/nome"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/xml_editext"
+                        android:maxLines="1"
+                        android:textColor="#000000"/>
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Sexo:"
+                        android:textSize="19dp" />
+
+                    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/rgSexo"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/rbFeminino"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Feminino" />
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/rbMasculino"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Masculino" />
+                        <!-- android:onClick="onRadioButtonClicked"/> -->
+
+                    </RadioGroup>
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Faixa etária:"
+                        android:textSize="19dp" />
+
+
+                    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/rgFaixaEtaria"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/rb10a14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="De 10 a 14"
+                            android:textSize="17dp" />
+                        <!-- android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/rb15a19"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="De 15 a 19"
+                            android:textSize="17dp" />
+
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/rb20a24"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="De 20 a 24 anos"
+                            android:textSize="17dp" />
+
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/rb25OMaior"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="≥ 25 anos"
+                            android:textSize="17dp" />
+
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+
+                    </RadioGroup>
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Residencia:"
+                        android:textSize="19dp" />
+
+                    <EditText
+                        android:id="@+id/residencia"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/xml_editext"
+                        android:maxLines="1"
+                        android:textColor="#000000"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Contacto:"
+                        android:textSize="19dp" />
+
+                    <EditText
+                        android:id="@+id/contacto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:background="@drawable/xml_editext"
+                        android:maxLines="1"
+                        android:layout_marginBottom="@dimen/margin_button"
+                        android:textColor="#000000"/>
+
+                    <!--
+                                        <RelativeLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content">
+
+                                            <Button
+                                                android:id="@+id/bSaveDadosPessoais"
+                                                android:layout_width="38dp"
+                                                android:layout_height="33dp"
+                                                android:layout_alignParentRight="true"
+                                                android:layout_marginTop="15dp"
+                                                android:background="@drawable/save"
+                                                android:text="Salvar"
+                                                android:textSize="8sp"
+                                                android:layout_marginBottom="10dp"/>
+                                        </RelativeLayout>
+
+
+                    -->
+
+                </LinearLayout>
+
+            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+
+            <Button
+                android:id="@+id/expandableButton3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/expandableLayout2"
+                android:background="#15765b"
+                android:drawableRight="@android:drawable/arrow_down_float"
+                android:onClick="expandableButton3"
+                android:paddingRight="10dp"
+                android:shadowColor="#003EA8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="Exame Clinico"
+                android:textColor="#fff" />
+
+            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                android:id="@+id/expandableLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/expandableButton3"
+                android:background="#E8FDFF"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                app:ael_expanded="false"
+                app:ael_interpolator="accelerate">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingTop="16dp">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Rastreio e Tratamento de ITS"
+                        android:textSize="19dp" />
+
+
+                    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/rgRastreio_tratamento_its"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/leucorreia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Leucorreia"
+                            android:textSize="17dp" />
+                        <!-- android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/ulcera"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Úlcera genital"
+                            android:textSize="17dp" />
+
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/corrimento"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Corrimento Uretral"
+                            android:textSize="17dp" />
+
+                        <RadioButton
+                            android:id="@+id/recebeuTratamento1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Recebeu Tratamento"
+                            android:textSize="17dp" />
+
+                    </RadioGroup>
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="Outras Patologias (indique quais):"
+                        android:textSize="17dp" />
+
+                    <EditText
+                        android:id="@+id/etOutrasPatologias"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/xml_editext"
+                        android:maxLines="1"
+                        android:textColor="#000000" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Fez exame clinico da Mama:"
+                        android:textSize="19dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=" Se a resposta for sim, por favor selecione os respectivos exames e indica se já foi tratada "
+                        android:textSize="14dp" />
+
+                    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/rgFez_exame_clinico_da_mama"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/rExameDaMamaSim"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sim "
+                            android:textSize="17dp" />
+                        <!-- android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/exameDaMamaNao"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Não"
+                            android:textSize="17dp" />
+
+                    </RadioGroup>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Transferida"
+                        android:textSize="19dp" />
+
+                    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/rgTransferida"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/nodulo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nódulo Mamário "
+                            android:textSize="17dp" />
+                        <!-- android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/outrapatologia1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Outra Patologia da Mama"
+                            android:layout_marginBottom="@dimen/margin_button"
+                            android:textSize="17dp" />
+
+                    </RadioGroup>
+                    <!--
+                                        <RelativeLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content">
+                                            <Button
+                                                android:id="@+id/bSaveExameClinico"
+                                                android:layout_width="38dp"
+                                                android:layout_height="33dp"
+                                                android:layout_alignParentRight="true"
+                                                android:layout_marginTop="15dp"
+                                                android:background="@drawable/save"
+                                                android:text="Salvar"
+                                                android:textSize="8sp"
+                                                android:layout_marginBottom="10dp"/>
+                                        </RelativeLayout>
+
+              -->
+
+                </LinearLayout>
+
+            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+
+            <Button
+                android:id="@+id/expandableButton4"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/expandableLayout3"
+                android:background="#178566"
+                android:drawableRight="@android:drawable/arrow_down_float"
+                android:onClick="expandableButton4"
+                android:paddingRight="10dp"
+                android:shadowColor="#003EA8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="Rastreio e Tratamento do Cancro do Colo Uterino"
+                android:textColor="#fff" />
+
+
+            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                android:id="@+id/expandableLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/expandableButton4"
+                android:background="#E8FDFF"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                app:ael_expanded="false"
+                app:ael_interpolator="accelerate">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingTop="16dp">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Fez exame de VIA"
+                        android:textSize="19dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Se a resposta for sim , por favor selecione o respectivo resultado"
+                        android:textSize="14dp" />
+
+
+                    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/rgFezExameVia"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/rExameDeViaSim"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sim"
+                            android:textSize="17dp" />
+                        <!-- android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/exameDeViaNao"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Não"
+                            android:textSize="17dp" />
+
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+
+                    </RadioGroup>
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Crioterapia"
+                        android:textSize="19dp" />
+
+
+                    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/rgCrioterapia"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/crioterapiaMesmoDia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Feita no mesmo dia"
+                            android:textSize="17dp" />
+                        <!-- android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/crioterapiaAdiada"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Adiada"
+                            android:textSize="17dp" />
+
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/crioterapiaFeitaDepois"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Feita depois"
+                            android:textSize="17dp" />
+
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+
+                    </RadioGroup>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Transferida"
+                        android:textSize="19dp" />
+
+
+                    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/rgTransferidaRTCU"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/lesaoDoColo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Lesão do Colo ≥ 75% "
+                            android:textSize="17dp" />
+                        <!-- android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/suspeitaDeCancro"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Suspeita de Cancro"
+                            android:layout_marginBottom="@dimen/margin_button"
+                            android:textSize="17dp" />
+
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+
+
+                    </RadioGroup>
+
+                    <!--
+                                        <RelativeLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content">
+
+                                            <Button
+                                                android:id="@+id/bSaveCancro"
+                                                android:layout_width="38dp"
+                                                android:layout_height="33dp"
+                                                android:layout_alignParentRight="true"
+                                                android:layout_marginBottom="10dp"
+                                                android:layout_marginTop="15dp"
+                                                android:background="@drawable/save"
+                                                android:text="Salvar"
+                                                android:textSize="8sp" />
+                                        </RelativeLayout>
+
+                    -->
+                </LinearLayout>
+
+            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+
+            <Button
+                android:id="@+id/expandableButton5"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/expandableLayout4"
+                android:background="#1a9371"
+                android:drawableRight="@android:drawable/arrow_down_float"
+                android:onClick="expandableButton5"
+                android:paddingRight="10dp"
+                android:shadowColor="#003EA8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="Rastreamento e Tratamento da Sífilis"
+                android:textColor="#fff" />
+
+
+            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                android:id="@+id/expandableLayout5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/expandableButton5"
+                android:background="#E8FDFF"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                app:ael_expanded="false"
+                app:ael_interpolator="accelerate">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingTop="16dp">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Estado à entrada na CSR/PF? "
+                        android:textSize="19dp" />
+
+
+                    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/rgEstado_a_entrada_na_csr_pf"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/positivoAEntrada"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Positivo"
+                            android:textSize="17dp" />
+                        <!-- android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/negativoAEntrada"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Negativo"
+                            android:textSize="17dp" />
+
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/desconhecidoAEntrada"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Desconhecido"
+                            android:textSize="17dp" />
+
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+                    </RadioGroup>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Resultado do teste feito na CSR/PF? "
+                        android:textSize="19dp" />
+
+
+                    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/rgResultado_do_teste_feito_na_csr_pf"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/sifilisPositivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Positivo"
+                            android:textSize="17dp" />
+                        <!-- android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/sifilisNegativo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Negativo"
+                            android:textSize="17dp" />
+
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/sifilisDesconhecido"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Não fez o teste"
+                            android:textSize="17dp" />
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+                    </RadioGroup>
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Tratamento da/do Utente - Dose Recebida: "
+                        android:textSize="19dp" />
+
+
+                    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/rgTratamento_do_utente_dose_recebida"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/doseRecebedaUm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1ª dose recebida "
+                            android:textSize="17dp" />
+                        <!-- android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/doseRecebedaTreis"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="3ª dose recebida"
+                            android:textSize="17dp" />
+
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+                    </RadioGroup>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Parceiro recebeu tratamento na CSR/PF "
+                        android:textSize="19dp" />
+
+
+                    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/rgParceiro_recebeu_tratamento_na_csr_pf"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/parceiroTratamentoSim"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sim "
+                            android:textSize="17dp" />
+                        <!-- android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/parceiroTratamentoNao"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Não"
+                            android:layout_marginBottom="@dimen/margin_button"
+                            android:textSize="17dp" />
+
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+                    </RadioGroup>
+
+                    <!--
+                                        <RelativeLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content">
+
+                                            <Button
+                                                android:id="@+id/bSaveSifilis"
+                                                android:layout_width="38dp"
+                                                android:layout_height="33dp"
+                                                android:layout_alignParentRight="true"
+                                                android:layout_marginBottom="10dp"
+                                                android:layout_marginTop="15dp"
+                                                android:background="@drawable/save"
+                                                android:text="Salvar"
+                                                android:textSize="8sp" />
+                                        </RelativeLayout>
+                    **-->
+
+                </LinearLayout>
+
+            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+            <Button
+                android:id="@+id/expandableButton6"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/expandableLayout5"
+                android:background="#229d7a"
+                android:drawableRight="@android:drawable/arrow_down_float"
+                android:onClick="expandableButton6"
+                android:paddingRight="10dp"
+                android:shadowColor="#003EA8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="Rastreio de HIV e Seguimento"
+                android:textColor="#fff" />
+
+
+            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                android:id="@+id/expandableLayout6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/expandableButton6"
+                android:background="#E8FDFF"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                app:ael_expanded="false"
+                app:ael_interpolator="accelerate">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingTop="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Seroestado à entrada 1ª CSR/PF? "
+                        android:textSize="19dp" />
+
+
+                    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/rgSeroestado_a_entrada_1a_csr_pf"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/desconhecidoHIV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Desconhecido"
+                            android:textSize="17dp" />
+                        <!-- android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/negativoHIV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Negativo há menos de 3 meses "
+                            android:textSize="17dp" />
+
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/positivoHIV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Positivo"
+                            android:textSize="17dp" />
+
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+                    </RadioGroup>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Teste de HIV na consulta de CSR/PF "
+                        android:textSize="19dp" />
+
+
+                    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/rgTeste_de_hiv_na_consulta_de_csr"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/naConsultaHIVPositivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Positivo"
+                            android:textSize="17dp" />
+                        <!-- android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/naConsultaHIVNegativo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Negativo "
+                            android:textSize="17dp" />
+
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/naConsultaHIVIndeterminado"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Inderterminado"
+                            android:textSize="17dp" />
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/naoFezTest"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Não fez este teste"
+                            android:textSize="17dp" />
+
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+                    </RadioGroup>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="TARV "
+                        android:textSize="19dp" />
+
+
+                    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/rgTarv"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/tarvNaEntrada"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Em TARV a entrada"
+                            android:textSize="17dp" />
+                        <!-- android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/iniciaTarv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Inicia o TARV "
+                            android:textSize="17dp" />
+
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/continuaTARV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Continua o TARV"
+                            android:textSize="17dp" />
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+
+                    </RadioGroup>
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Testagem do Parceiro "
+                        android:textSize="19dp" />
+
+
+                    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/rgTestagem_do_parceiro"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/parceiroPositivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Positivo"
+                            android:textSize="17dp" />
+                        <!-- android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/parceiroNegativo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Negativo "
+                            android:textSize="17dp" />
+
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/parcieroInderterminado"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Inderterminado"
+                            android:textSize="17dp" />
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/parcieroNaoFezTest"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Não fez este teste"
+                            android:layout_marginBottom="@dimen/margin_button"
+                            android:textSize="17dp" />
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+
+                    </RadioGroup>
+                    <!--
+                                        <RelativeLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content">
+
+                                            <Button
+                                                android:id="@+id/bSaveHiv"
+                                                android:layout_width="38dp"
+                                                android:layout_height="33dp"
+                                                android:layout_alignParentRight="true"
+                                                android:layout_marginBottom="10dp"
+                                                android:layout_marginTop="15dp"
+                                                android:background="@drawable/save"
+                                                android:text="Salvar"
+                                                android:textSize="8sp" />
+                                        </RelativeLayout>
+
+                    -->
+                </LinearLayout>
+
+            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+            <Button
+                android:id="@+id/expandableButton7"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/expandableLayout6"
+                android:background="#27a581"
+                android:drawableRight="@android:drawable/arrow_down_float"
+                android:onClick="expandableButton7"
+                android:paddingRight="10dp"
+                android:shadowColor="#003EA8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="Planeamento Familiar"
+                android:textColor="#fff" />
+
+            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                android:id="@+id/expandableLayout7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/expandableButton7"
+                android:background="#E8FDFF"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                app:ael_expanded="false"
+                app:ael_interpolator="accelerate">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingTop="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Utente de PF:"
+                        android:textSize="19dp" />
+
+                    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/rgUtentePF"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <RadioButton
+                            android:id="@+id/utenteNova"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nova"
+                            android:textSize="17dp" />
+                        <!-- android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/utenteContinuadora"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Continuadora"
+                            android:textSize="17dp" />
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+
+                    </RadioGroup>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Método do PF:"
+                        android:textSize="19dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=" Por favor, selecione o método e preencha os respectivos campos "
+                        android:textSize="14dp" />
+
+
+                    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/rgMetodoPF"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <RadioButton
+                            android:id="@+id/rPilula"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pílula"
+                            android:textSize="17dp" />
+                        <!-- android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/rInjetavela"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Injectável"
+                            android:textSize="17dp" />
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/rDiu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="DIU"
+                            android:textSize="17dp" />
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/rImplante"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Implante"
+                            android:textSize="17dp" />
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/rMetodoDeAmenorreia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" Método de Amenorréia da lactação (LAM)"
+                            android:textSize="17dp" />
+
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/rContracepcaoDeEmergencia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" Contracepção de Emergência"
+                            android:textSize="17dp" />
+
+
+                        <RadioButton
+                            android:id="@+id/rLaqueacaoTubar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" Laqueação Tubar"
+                            android:textSize="17dp" />
+
+
+                        <RadioButton
+                            android:id="@+id/rOutroMetodo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Outro"
+                            android:textSize="17dp" />
+
+
+                    </RadioGroup>
+
+                    <CheckBox
+                        android:id="@+id/cbPreservativo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="0dp"
+                        android:layout_marginTop="5dp"
+                        android:drawablePadding="-50dp"
+                        android:scaleX="1.00"
+                        android:scaleY="1.00"
+                        android:text="Preservativos"
+                        android:textSize="17dp" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Método anterior: "
+                        android:textSize="17dp" />
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/sMetodoAnterior"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@android:drawable/btn_dropdown"
+                        android:spinnerMode="dropdown"
+                        android:layout_marginBottom="@dimen/margin_button"
+                        android:text="Deixou de fazer..." />
+
+                    <!--
+                                        <RelativeLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content">
+
+                                            <Button
+                                                android:id="@+id/bSavePF"
+                                                android:layout_width="38dp"
+                                                android:layout_height="33dp"
+                                                android:layout_alignParentRight="true"
+                                                android:layout_marginBottom="10dp"
+                                                android:layout_marginTop="15dp"
+                                                android:background="@drawable/save"
+                                                android:text="Salvar"
+                                                android:textSize="8sp" />
+
+                                        </RelativeLayout>
+                    -->
+                </LinearLayout>
+
+            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+            <Button
+                android:id="@+id/expandableButton8"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/expandableLayout7"
+                android:background="#2caa86"
+                android:drawableRight="@android:drawable/arrow_down_float"
+                android:onClick="expandableButton8"
+                android:paddingRight="10dp"
+                android:shadowColor="#003EA8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="Transferida Por/Para "
+                android:textColor="#fff" />
+
+
+            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                android:id="@+id/expandableLayout8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/expandableButton8"
+                android:background="#E8FDFF"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                app:ael_expanded="false"
+                app:ael_interpolator="accelerate">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingTop="16dp">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Transferida por/para: "
+                        android:textSize="19dp" />
+
+
+                    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/rgTransferidaPorPara"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/laqueacaoTubaria"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Laqueação Tubária"
+                            android:textSize="17dp" />
+                        <!-- android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/vasectomia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Vasectomia"
+                            android:textSize="17dp" />
+
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/transferidaTarv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TARV"
+                            android:textSize="17dp" />
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+
+                        <RadioButton
+                            android:id="@+id/transferidaOutro"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Outro"
+                            android:textSize="17dp" />
+                        <!--android:onClick="onRadioButtonClicked"/> -->
+
+                    </RadioGroup>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Observações"
+                        android:textSize="19dp" />
+
+
+                    <EditText
+                        android:id="@+id/etObservacoes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/xml_editext"
+                        android:maxLines="1"
+                        android:layout_marginBottom="@dimen/margin_button"
+                        android:textColor="#000000"/>
+                    <!--
+                                        <RelativeLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content">
+
+                                                                <Button
+                                                                    android:id="@+id/bSaveTransferida"
+                                                                    android:layout_width="38dp"
+                                                                    android:layout_height="33dp"
+                                                                    android:layout_alignParentRight="true"
+                                                                    android:layout_marginBottom="10dp"
+                                                                    android:layout_marginTop="15dp"
+                                                                    android:background="@drawable/save"
+                                                                    android:text="Salvar"
+                                                                    android:textSize="8sp" />
+
+                                                            </RelativeLayout>
+                                        -->
+                </LinearLayout>
+
+            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>
+
+
+
+
+

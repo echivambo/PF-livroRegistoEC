@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Tipo de exame:"
+        android:textSize="19dp" />
+
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/rgTipoExameMama"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/exameNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Exame Normal " />
+        <!--android:onClick="onRadioButtonClicked"/> -->
+
+        <RadioButton
+            android:id="@+id/noduloDaMama"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="Nódulo da Mama " />
+        <!-- android:onClick="onRadioButtonClicked"/> -->
+
+
+        <RadioButton
+            android:id="@+id/mastite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-23dp"
+            android:text="Mastite" />
+        <!-- android:onClick="onRadioButtonClicked"/> -->
+
+
+        <RadioButton
+            android:id="@+id/outraslesoes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="Outras Lesões" />
+        <!-- android:onClick="onRadioButtonClicked"/> -->
+
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Tratado:"
+        android:textSize="19dp" />
+
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/rgTratado"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/rbEMTratadoSim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sim" />
+        <!--android:onClick="onRadioButtonClicked"/> -->
+
+        <RadioButton
+            android:id="@+id/rbEMTratadoNao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:layout_marginBottom="20dp"
+            android:text="Não" />
+        <!-- android:onClick="onRadioButtonClicked"/> -->
+
+    </RadioGroup>
+
+</LinearLayout>

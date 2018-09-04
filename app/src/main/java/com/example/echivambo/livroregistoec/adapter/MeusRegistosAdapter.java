@@ -68,11 +68,12 @@ public class MeusRegistosAdapter extends RecyclerView.Adapter<MeusRegistosAdapte
         holder.cvRegistoSessao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*
                 Intent intent = new Intent(context, MainActivity.class);
                 intent.putExtra("consulta", mDataset.get(position));
                 context.startActivity(intent);
-
-                //  Toast.makeText(context, "Clique e encontrei "+codigoConsulta, Toast.LENGTH_LONG).show();
+*/
+                //Toast.makeText(context, "Clique e encontrei ", Toast.LENGTH_LONG).show();
             }
         });
     }

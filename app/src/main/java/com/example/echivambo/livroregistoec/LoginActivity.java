@@ -84,6 +84,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        //if(savedInstanceState==null){
         mAuth = FirebaseAuth.getInstance();
 
         // Set up the login form.
@@ -173,7 +174,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString()+"@psi.org.mz";
+        user_id = mEmailView.getText().toString();
+        String email = user_id+"@psi.org.mz";
         String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
