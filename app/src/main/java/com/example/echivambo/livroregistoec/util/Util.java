@@ -1,9 +1,14 @@
 package com.example.echivambo.livroregistoec.util;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.widget.EditText;
+
+import com.example.echivambo.livroregistoec.LoginActivity;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -43,5 +48,30 @@ public class Util {
 
         edittext.setText(sdf.format(myCalendar.getTime()));
     }
+/*
+    public static void checkIfIsLogedIn(Activity activity){
+        if (LoginActivity.user == null){
+            Intent intencion = new Intent(activity, LoginActivity.class);
+            activity.startActivity(intencion);
+        }
 
+    }
+    */
+
+    public static void logout(final Activity activity, final Context context){
+        new AlertDialog.Builder(context)
+                .setTitle("Sair do aplicativo?")
+                .setMessage("Deseja sair do aplicativo?")
+                .setNegativeButton("Não", null)
+                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        FirebaseAuth.getInstance().signOut();
+                        LoginActivity.user = null;
+                        Intent intencion = new Intent(context, LoginActivity.class);
+                        activity.startActivity(intencion);
+                    }
+
+                }).create().show();
+    }
 }

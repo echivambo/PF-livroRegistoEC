@@ -16,12 +16,12 @@ public class PlaneamentoFamiliar {
     private String metodo_anterior;
     private String codigo_consulta;
     private int status;
-    private int user_id;
+    private String user_id;
 
     public PlaneamentoFamiliar() {
     }
 
-    public PlaneamentoFamiliar(String utente_pf, String metodo_do_pf, String tipo_do_metodo_do_pf, String estado_da_utente_no_metodo, int total_distribuido, String metodo_anterior, String codigo_consulta, int status, int user_id) {
+    public PlaneamentoFamiliar(String utente_pf, String metodo_do_pf, String tipo_do_metodo_do_pf, String estado_da_utente_no_metodo, int total_distribuido, String metodo_anterior, String codigo_consulta, int status, String user_id) {
         this.utente_pf = utente_pf;
         this.metodo_do_pf = metodo_do_pf;
         this.tipo_do_metodo_do_pf = tipo_do_metodo_do_pf;
@@ -97,11 +97,11 @@ public class PlaneamentoFamiliar {
         this.status = status;
     }
 
-    public int getUser_id() {
+    public String getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(int user_id) {
+    public void setUser_id(String user_id) {
         this.user_id = user_id;
     }
 

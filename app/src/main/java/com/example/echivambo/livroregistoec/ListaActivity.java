@@ -1,8 +1,10 @@
 package com.example.echivambo.livroregistoec;
 
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
@@ -44,7 +47,11 @@ public class ListaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista);
 
+        //Util.checkIfIsLogedIn(ListaActivity.this);
+
         toolbar = (Toolbar) findViewById(R.id.toolBar);
+        new ToolbarConfigurer(this, (Toolbar) findViewById(R.id.toolBar), true);
+
         toolbar.setTitle("Livro de Registo");
         setSupportActionBar(toolbar);
         lista = new ArrayList<>();
@@ -54,14 +61,14 @@ public class ListaActivity extends AppCompatActivity {
         ceateAdapter();
 
         try {
-            mDatabase = FirebaseDatabase.getInstance().getReference("consulta");
-            mDatabase.addListenerForSingleValueEvent(valueEventListener);
-/*
+           // mDatabase = FirebaseDatabase.getInstance().getReference("consulta");
+           // mDatabase.addListenerForSingleValueEvent(valueEventListener);
+
             Query query = FirebaseDatabase.getInstance().getReference("consulta")
                     .orderByChild("user_id")
-                    .equalTo(LoginActivity.user_id);
+                    .equalTo(LoginActivity.user_id.toLowerCase());
             query.addListenerForSingleValueEvent(valueEventListener);
-            */
+
         }catch (Exception e){
             Toast.makeText(this, "Erro ao ler registo \n"+e.getMessage(), Toast.LENGTH_LONG).show();
         }
@@ -133,8 +140,13 @@ public class ListaActivity extends AppCompatActivity {
     }*/
 
 
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.lista_menu, menu);
+
+        return true;
 
 
+    }
 
 
     @Override
@@ -142,24 +154,14 @@ public class ListaActivity extends AppCompatActivity {
         // Handle app bar item clicks here. The app bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
         switch (item.getItemId()) {
 
-            case R.id.action_clearRegisto:
-                displayToast("Limpar Campos");
-                return true;
+            //  case android.R.id.home:
+            //    finish();
+            //   return true;
 
-         //   case R.id.action_sync:
-            //    displayToast("Sincronizar");
-                /*
-                Intent intent = new Intent(getApplicationContext(), ListaActivity.class);
-                startActivity(intent);*/
-         //       return true;
 
-            case R.id.action_save: {
-                displayToast("Salvar");
-
-              return true;
-            }
 
             case R.id.action_about: {
                 Util.showMessage(this, "About", "Aqui virá uma breve descrição do aplicativo");
@@ -170,18 +172,43 @@ public class ListaActivity extends AppCompatActivity {
                 return true;
             }
             case R.id.action_sair: {
-                Intent intencion = new Intent(this, LoginActivity.class);
-                startActivity(intencion);
+                Util.logout(ListaActivity.this, this);
                 return true;
             }
             case R.id.action_relatio:
                 //         Intent intent = new Intent(this, SettingsActivity.class);
                 //     startActivity(intent);
                 //      return true;
+
+
+            case android.R.id.home:
+                // app icon in action bar clicked; go home
+                Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivityForResult(myIntent, 0);
+                return true;
             default:
-                // Do nothing
+                return super.onOptionsItemSelected(item);
+
+            // Do nothing
         }
-        return super.onOptionsItemSelected(item);
+
+    }
+    public class ToolbarConfigurer implements View.OnClickListener {
+        private Activity activity;
+
+        public ToolbarConfigurer(Activity activity, Toolbar toolbar, boolean displayHomeAsUpEnabled) {
+            toolbar.setTitle((this.activity = activity).getTitle());
+            if (!displayHomeAsUpEnabled) return;
+
+            toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_ios_white_18);
+            toolbar.setNavigationOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            NavUtils.navigateUpFromSameTask(activity);
+        }
+
     }
 
     public void displayToast(String message) {

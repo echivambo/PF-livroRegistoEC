@@ -24,7 +24,6 @@
             android:id="@+id/viaPositivo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
             android:text=" Via + (Positivo) " />
         <!--android:onClick="onRadioButtonClicked"/> -->
 
@@ -32,7 +31,6 @@
             android:id="@+id/viaPositivoHIVPositivo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:text="Via + (Positivo) e HIV + (positivo) " />
         <!-- android:onClick="onRadioButtonClicked"/> -->
 
@@ -41,7 +39,7 @@
             android:id="@+id/viaNegativo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:checked="true"
             android:text="Via - (Negativo)" />
         <!-- android:onClick="onRadioButtonClicked"/> -->
 

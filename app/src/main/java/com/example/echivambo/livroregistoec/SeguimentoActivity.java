@@ -11,18 +11,25 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.echivambo.livroregistoec.adapter.MyAdapter;
 import com.example.echivambo.livroregistoec.model.Cabecalho;
 import com.example.echivambo.livroregistoec.model.ConsultaPF;
 import com.example.echivambo.livroregistoec.model.auxiliar.UtentePF;
+import com.example.echivambo.livroregistoec.util.Util;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -48,6 +55,24 @@ public class SeguimentoActivity extends AppCompatActivity {
     @BindView(R.id.acNome)
     AutoCompleteTextView _acNomeUtente;
 
+    @BindView(R.id.rbFezConsulta)
+    RadioButton _rbFezConsulta;
+
+    @BindView(R.id.rbNaoFezConsulta)
+    RadioButton _rbNaoFezConsulta;
+
+    @BindView(R.id.tvNome)
+    TextView _tvNome;
+
+    @BindView(R.id.rlNomeSearsh)
+    RelativeLayout _rlNomeSearsh;
+
+    @BindView(R.id.rlFloatButton)
+    RelativeLayout _rlFloatButton;
+
+    @BindView(R.id.my_recycler_view)
+    RecyclerView _my_recycler_view;
+
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -62,14 +87,13 @@ public class SeguimentoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_seguimento);
         ButterKnife.bind(this);
 
+        //Util.checkIfIsLogedIn(SeguimentoActivity.this);
+
         toolbar = (Toolbar) findViewById(R.id.toolBar);
         toolbar.setTitle("Livro de Registo");
         setSupportActionBar(toolbar);
 
-
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        firebaseDatabase.setPersistenceEnabled(true);
-        mDatabase = firebaseDatabase.getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         lista = new ArrayList<>();
 
@@ -104,9 +128,28 @@ public class SeguimentoActivity extends AppCompatActivity {
             }
         });
 
+        _rbFezConsulta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                _tvNome.setVisibility(TextView.VISIBLE);
+                _rlNomeSearsh.setVisibility(RelativeLayout.VISIBLE);
+                _rlFloatButton.setVisibility(FloatingActionButton.GONE);
+                _my_recycler_view.setVisibility(RecyclerView.VISIBLE);
+            }
+        });
 
+        _rbNaoFezConsulta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                _tvNome.setVisibility(TextView.GONE);
+                _rlNomeSearsh.setVisibility(RelativeLayout.GONE);
+                _rlFloatButton.setVisibility(FloatingActionButton.VISIBLE);
+                _my_recycler_view.setVisibility(RecyclerView.GONE);
+            }
+        });
 
     }
+
 
     public void ceateAdapter(){
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
@@ -144,6 +187,60 @@ public class SeguimentoActivity extends AppCompatActivity {
 
         }
     };
+
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.seguimento_menu, menu);
+
+        return true;
+
+
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle app bar item clicks here. The app bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+
+        switch (item.getItemId()) {
+
+            //  case android.R.id.home:
+            //    finish();
+            //   return true;
+
+
+            case R.id.action_about: {
+                Util.showMessage(this, "About", "Aqui virá uma breve descrição do aplicativo");
+                return true;
+            }
+            case R.id.action_legal: {
+                Util.showMessage(this, "Legal", "Direitos autorais\n \n \t\t\t\t\t\t\t\t\tSobre autores...");
+                return true;
+            }
+            case R.id.action_sair: {
+                Util.logout(SeguimentoActivity.this, this);
+                return true;
+            }
+            case R.id.action_relatio:
+                //         Intent intent = new Intent(this, SettingsActivity.class);
+                //     startActivity(intent);
+                //      return true;
+
+
+            case android.R.id.home:
+                // app icon in action bar clicked; go home
+                Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivityForResult(myIntent, 0);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+            // Do nothing
+        }
+
+    }
 
 
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -187,6 +284,8 @@ public class SeguimentoActivity extends AppCompatActivity {
 
         return super.dispatchTouchEvent(ev);
     }
+
+
 }
 
 

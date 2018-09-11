@@ -202,6 +202,7 @@
                             android:id="@+id/parceiroAusente"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="true"
                             android:layout_marginBottom="@dimen/margin_button"
                             android:text="Não" />
                         <!-- android:onClick="onRadioButtonClicked"/> -->
@@ -301,6 +302,7 @@
                             android:id="@+id/rbFeminino"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="true"
                             android:text="Feminino" />
                         <!--android:onClick="onRadioButtonClicked"/> -->
 
@@ -560,6 +562,7 @@
                             android:id="@+id/exameDaMamaNao"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="true"
                             android:text="Não"
                             android:textSize="17dp" />
 
@@ -687,6 +690,7 @@
                             android:id="@+id/exameDeViaNao"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="true"
                             android:text="Não"
                             android:textSize="17dp" />
 
@@ -977,6 +981,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Não"
+                            android:checked="true"
                             android:layout_marginBottom="@dimen/margin_button"
                             android:textSize="17dp" />
 
@@ -1538,6 +1543,19 @@
 
                     </RadioGroup>
 
+
+                    <EditText
+                        android:id="@+id/ettransferidaOutro"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/xml_editext"
+                        android:visibility="gone"
+                        android:hint="Especifique..."
+                        android:maxLines="1"
+                        android:textColor="#000000"/>
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -1555,24 +1573,15 @@
                         android:maxLines="1"
                         android:layout_marginBottom="@dimen/margin_button"
                         android:textColor="#000000"/>
-                    <!--
-                                        <RelativeLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content">
 
-                                                                <Button
-                                                                    android:id="@+id/bSaveTransferida"
-                                                                    android:layout_width="38dp"
-                                                                    android:layout_height="33dp"
-                                                                    android:layout_alignParentRight="true"
-                                                                    android:layout_marginBottom="10dp"
-                                                                    android:layout_marginTop="15dp"
-                                                                    android:background="@drawable/save"
-                                                                    android:text="Salvar"
-                                                                    android:textSize="8sp" />
-
-                                                            </RelativeLayout>
-                                        -->
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/xml_editext"
+                        android:maxLines="1"
+                        android:visibility="invisible"
+                        android:layout_marginBottom="@dimen/margin_button"
+                        android:textColor="#000000"/>
                 </LinearLayout>
 
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>

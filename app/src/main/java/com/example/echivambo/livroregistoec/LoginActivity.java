@@ -3,7 +3,10 @@ package com.example.echivambo.livroregistoec;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
@@ -51,13 +54,14 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class LoginActivity extends AppCompatActivity {
 
     /**
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
     public static String user_id;
+    public static FirebaseUser user;
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -72,24 +76,30 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private UserLoginTask mAuthTask = null;
 
     // UI references.
-    private AutoCompleteTextView mEmailView;
+    private EditText mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
 
     private FirebaseAuth mAuth;
 
+    private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        progressDialog = new ProgressDialog(LoginActivity.this);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Autenticando...");
+
         //if(savedInstanceState==null){
         mAuth = FirebaseAuth.getInstance();
 
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        populateAutoComplete();
+        mEmailView = (EditText) findViewById(R.id.email);
+        //populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -110,11 +120,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 attemptLogin();
             }
         });
-
+/*
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+        */
     }
-
+/*
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
             return;
@@ -122,7 +133,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         getLoaderManager().initLoader(0, null, this);
     }
-
+*/
     private boolean mayRequestContacts() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return true;
@@ -148,6 +159,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     /**
      * Callback received when a permissions request has been completed.
      */
+    /*
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
@@ -157,7 +169,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         }
     }
-
+*/
 
     /**
      * Attempts to sign in or register the account specified by the login form.
@@ -165,77 +177,86 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
+        try {
+            if (mAuthTask != null) {
+                return;
+            }
 
-        // Reset errors.
-        mEmailView.setError(null);
-        mPasswordView.setError(null);
+            // Reset errors.
+            mEmailView.setError(null);
+            mPasswordView.setError(null);
 
-        // Store values at the time of the login attempt.
-        user_id = mEmailView.getText().toString();
-        String email = user_id+"@psi.org.mz";
-        String password = mPasswordView.getText().toString();
+            // Store values at the time of the login attempt.
+            user_id = mEmailView.getText().toString();
+            String email = user_id + "@psi.org.mz";
+            String password = mPasswordView.getText().toString();
 
-        boolean cancel = false;
-        View focusView = null;
+            boolean cancel = false;
+            View focusView = null;
 
-        // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
-            cancel = true;
-        }
+            // Check for a valid password, if the user entered one.
+            if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+                mPasswordView.setError(getString(R.string.error_invalid_password));
+                focusView = mPasswordView;
+                cancel = true;
+            }
 
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
-            cancel = true;
-        } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
-            cancel = true;
-        }
+            // Check for a valid email address.
+            if (TextUtils.isEmpty(email)) {
+                mEmailView.setError(getString(R.string.error_field_required));
+                focusView = mEmailView;
+                cancel = true;
+            } else if (!isEmailValid(email)) {
+                mEmailView.setError(getString(R.string.error_invalid_email));
+                focusView = mEmailView;
+                cancel = true;
+            }
 
-        if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
-            focusView.requestFocus();
-        } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-            showProgress(true);
+            if (cancel) {
+                // There was an error; don't attempt login and focus the first
+                // form field with an error.
+                focusView.requestFocus();
+            } else {
+                // Show a progress spinner, and kick off a background task to
+                // perform the user login attempt.
+                if (!email.isEmpty() || !password.isEmpty()) {
+                    progressDialog.show();
+                    //showProgress(true);
 
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                showProgress(false);
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d("Login", "signInWithEmail:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                //updateUI(user);
-                                startActivity(new Intent(LoginActivity.this, SeguimentoActivity.class));
-                                finish();
-                            } else {
-                                showProgress(false);
-                                // If sign in fails, display a message to the user.
-                                Log.w("Login", "signInWithEmail:failure", task.getException());
-                                Toast.makeText(LoginActivity.this, "Email e/ou senha incorretos.",
-                                        Toast.LENGTH_SHORT).show();
-                                //updateUI(null);
-                            }
+                    mAuth.signInWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        progressDialog.dismiss();
+                                        //showProgress(false);
+                                        // Sign in success, update UI with the signed-in user's information
+                                        Log.d("Login", "signInWithEmail:success");
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        //updateUI(user);
+                                        startActivity(new Intent(LoginActivity.this, SeguimentoActivity.class));
+                                        finish();
+                                    } else {
+                                        progressDialog.dismiss();
+                                        //showProgress(false);
+                                        // If sign in fails, display a message to the user.
+                                        Log.w("Login", "signInWithEmail:failure", task.getException());
+                                        Toast.makeText(LoginActivity.this, "Email e/ou senha incorretos.",
+                                                Toast.LENGTH_SHORT).show();
+                                        //updateUI(null);
+                                    }
 
-                            // ...
-                        }
-                    });
+                                    // ...
+                                }
+                            });
 /*
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
             */
+                }
+            }
+        }catch (Exception e){
+            Toast.makeText(this, "Por favor preencha os campos", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -252,6 +273,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     /**
      * Shows the progress UI and hides the login form.
      */
+    /*
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
@@ -284,7 +306,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
-
+    */
+/*
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return new CursorLoader(this,
@@ -301,7 +324,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 // a primary email address if the user hasn't specified one.
                 ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
     }
-
+    */
+/*
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
         List<String> emails = new ArrayList<>();
@@ -313,12 +337,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         addEmailsToAutoComplete(emails);
     }
-
+*/
+/*
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
 
     }
-
+    */
+/*
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
@@ -327,7 +353,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mEmailView.setAdapter(adapter);
     }
-
+*/
 
     private interface ProfileQuery {
         String[] PROJECTION = {
@@ -379,7 +405,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
-            showProgress(false);
+            //showProgress(false);
+            progressDialog.dismiss();
 
             if (success) {
                 finish();
@@ -392,7 +419,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onCancelled() {
             mAuthTask = null;
-            showProgress(false);
+            progressDialog.dismiss();
+           // showProgress(false);
         }
     }
 
@@ -404,13 +432,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("EC Ciar usuario", "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                             user = mAuth.getCurrentUser();
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("Criar Usuario", "createUserWithEmail:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                                user = null;
                             //updateUI(null);
                         }
 
@@ -459,6 +488,23 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
 
         return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle("Fechar aplicativo?")
+                .setMessage("Deseja fechar o aplicativo?")
+                .setNegativeButton("Não", null)
+                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        //System.exit(0);
+                        setResult(RESULT_OK, new Intent().putExtra("EXIT", true));
+                        finish();
+                    }
+
+                }).create().show();
     }
 }
 

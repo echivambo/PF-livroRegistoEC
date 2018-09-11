@@ -7,7 +7,5 @@ public class Config {
     public static final  int SYNCED_WITH_SERVER = 2;
     public static final  int NOT_SYNCED_WITH_SERVER = 1;
 
-    public static final  int USER_ID = 1;
-
     public static final int DB_VERSION = 1;
 }

@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity">
+    tools:context=".SeguimentoActivity">
     <item
         android:id="@+id/action_about"
         android:orderInCategory="100"
@@ -21,22 +21,6 @@
         android:orderInCategory="200"
         android:title="Sair"
         app:showAsAction="never" />
-
-
-    <item
-        android:id="@+id/action_save"
-        android:orderInCategory="20"
-        android:title="Save"
-        android:icon="@drawable/baseline_save_white_36"
-        app:showAsAction="always" />
-
-    <item
-
-        android:id="@+id/action_sync"
-        android:orderInCategory="40"
-        android:title="Meus registos"
-        android:icon="@drawable/baseline_sync_white_36"
-        app:showAsAction="ifRoom" />
 
 
 
