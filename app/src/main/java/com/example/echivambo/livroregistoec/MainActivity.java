@@ -199,6 +199,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //CABECALHO
         etDataConsulta = (EditText) findViewById(R.id.dataDaConsulta);
         etNumeroConsulta = (EditText) findViewById(R.id.etNumeroConsulta);
+        etNumeroConsulta.setText(1+"");
         etNidCSRF = (EditText) findViewById(R.id.etNid_csr_pf);
         etNidTarv = (EditText) findViewById(R.id.etNid_tarv);
         rgParceiro_presente_na_csr_pf = (RadioGroup) findViewById(R.id.rgParceiro_presente_na_csr_pf);
@@ -538,14 +539,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
         LayoutInflater inflater = MainActivity.this.getLayoutInflater();
-        final View mView = inflater.inflate(R.layout.select_methodinjectavel, null);
-        final TextView tvMetodo = (TextView) mView.findViewById(R.id.tvMetodoINJ);
-        final RadioGroup rgEstadoUtente = (RadioGroup) mView.findViewById(R.id.rgNovaContinuadora);
+        final View mView = inflater.inflate(R.layout.select_methoddiu, null);
+        //final TextView tvMetodo = (TextView) mView.findViewById(R.id.tvMetodoINJ);
+        final RadioGroup rgEstadoUtente = (RadioGroup) mView.findViewById(R.id.novaContinuadora);
 
 
         int selectedMetodo = rgMetodoPF.getCheckedRadioButtonId();
         rbMetodoPF = (RadioButton) findViewById(selectedMetodo);
-        tvMetodo.setText(rbMetodoPF.getText().toString());
+        //tvMetodo.setText(rbMetodoPF.getText().toString());
 
 
         builder.setView(mView)
@@ -556,15 +557,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
                                 int selectedEstadoUtente = rgEstadoUtente.getCheckedRadioButtonId();
-                                RadioButton rbEstadoUtente = mView.findViewById(selectedEstadoUtente);
-
-                                String estadoUsuario = rbEstadoUtente.getText().toString();
+                                if (selectedEstadoUtente == -1) {
+                                    Toast.makeText(getApplicationContext(), "Selecione uma opção", Toast.LENGTH_LONG).show();
+                                    rgMetodoPF.clearCheck();
+                                } else{
+                                    RadioButton rbEstadoUtente = mView.findViewById(selectedEstadoUtente);
+                                    String estadoUsuario = rbEstadoUtente.getText().toString();
                                 String metodo = rbMetodoPF.getText().toString();
                                 String tipoMetodo = rbMetodoPF.getText().toString();
                                 int quantidadeDistribuida = 1;
 
                                 MetodoSelecionado metodoSelecionado = new MetodoSelecionado(estadoUsuario, metodo, tipoMetodo, quantidadeDistribuida);
                                 listMetodoSelecionado.add(metodoSelecionado);
+                              }
                             }
                         })
                 .setNegativeButton("Cancelar",
@@ -600,17 +605,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     if (cbPreservativo.isChecked()) {
                                         int selectedEstadoUtente = rgEstafoMetotodoPreservativo.getCheckedRadioButtonId();
                                         int selectedTipoPreservativo = rgTipoPreservativos.getCheckedRadioButtonId();
+                                        if (selectedEstadoUtente == -1 || selectedTipoPreservativo == -1) {
+                                            Toast.makeText(getApplicationContext(), "Preencha todos os campos", Toast.LENGTH_LONG).show();
+                                            cbPreservativo.setChecked(false);
+                                        } else {
+                                            RadioButton rbEstafoMetotodoPreservativo = (RadioButton) mView.findViewById(selectedEstadoUtente);
+                                            RadioButton rbTipoPreservativos = (RadioButton) mView.findViewById(selectedTipoPreservativo);
 
-                                        RadioButton rbEstafoMetotodoPreservativo = (RadioButton) mView.findViewById(selectedEstadoUtente);
-                                        RadioButton rbTipoPreservativos = (RadioButton) mView.findViewById(selectedTipoPreservativo);
+                                            String estadoUsuario = rbEstafoMetotodoPreservativo.getText().toString();
+                                            String metodo = cbPreservativo.getText().toString();
+                                            String tipoMetodo = rbTipoPreservativos.getText().toString();
+                                            int quantidadeDistribuida = Integer.parseInt(etNumeroPDistribuido.getText().toString());
 
-                                        String estadoUsuario = rbEstafoMetotodoPreservativo.getText().toString();
-                                        String metodo = cbPreservativo.getText().toString();
-                                        String tipoMetodo = rbTipoPreservativos.getText().toString();
-                                        int quantidadeDistribuida = Integer.parseInt(etNumeroPDistribuido.getText().toString());
-
-                                        MetodoSelecionado metodoSelecionado = new MetodoSelecionado(estadoUsuario, metodo, tipoMetodo, quantidadeDistribuida);
-                                        listMetodoSelecionado.add(metodoSelecionado);
+                                            MetodoSelecionado metodoSelecionado = new MetodoSelecionado(estadoUsuario, metodo, tipoMetodo, quantidadeDistribuida);
+                                            listMetodoSelecionado.add(metodoSelecionado);
+                                        }
                                     }
 
                                 }
@@ -619,7 +628,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     cbPreservativo.setChecked(false);
-                                    cbPreservativo.setText("Edson");
                                     dialog.cancel();
                                 }
                             });
@@ -634,19 +642,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void fillTipoMetodo(String metodo, View mView) {
         RadioButton rbMetodo1 = (RadioButton) mView.findViewById(R.id.rbMetodo1);
         RadioButton rbMetodo2 = (RadioButton) mView.findViewById(R.id.rbMetodo2);
+        RadioButton rbZarin = (RadioButton) mView.findViewById(R.id.rbZarin);
         EditText etCiclosDistribuidos = (EditText) mView.findViewById(R.id.etCiclosDistribuidos);
 
         if (metodo.equalsIgnoreCase("pílula")) {
             rbMetodo1.setText("Microlut");
             rbMetodo2.setText("Microgynon");
+            rbZarin.setVisibility(View.GONE);
         } else if (metodo.equalsIgnoreCase("Injectável")) {
             rbMetodo1.setText("Depo");
             rbMetodo2.setText("Sayana Press");
             etCiclosDistribuidos.setText("1");
+            etCiclosDistribuidos.setVisibility(View.INVISIBLE);
+            rbZarin.setVisibility(View.GONE);
         } else if (metodo.equalsIgnoreCase("Implante")) {
             rbMetodo1.setText("Jadelle");
             rbMetodo2.setText("Implanon");
             etCiclosDistribuidos.setText("1");
+            etCiclosDistribuidos.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -682,6 +695,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 int selectedTipoMetos = rgTipoPilula.getCheckedRadioButtonId();
 
                                 int selectedMetodo = rgMetodoPF.getCheckedRadioButtonId();
+
+                                if (selectedEstadoUtente == -1 || selectedTipoMetos == -1 || selectedMetodo == -1 || etCiclosDistribuidos.getText().toString().isEmpty()) {
+                                    Toast.makeText(getApplicationContext(), "Preencha todos os campos", Toast.LENGTH_LONG).show();
+                                    rgMetodoPF.clearCheck();
+                                }else {
                                 rbMetodoPF = (RadioButton) findViewById(selectedMetodo);
 
                                 RadioButton rbEstadoUtente = (RadioButton) mView.findViewById(selectedEstadoUtente);
@@ -694,6 +712,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                                 MetodoSelecionado metodoSelecionado = new MetodoSelecionado(estadoUsuario, metodo, tipoMetodo, quantidadeDistribuida);
                                 listMetodoSelecionado.add(metodoSelecionado);
+
+                                }
                             }
                         })
                 .setNegativeButton("Cancelar",
@@ -835,15 +855,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             public void onClick(DialogInterface dialog, int id) {
                                 int selectedEstadoUtente = rgEstadoUtente.getCheckedRadioButtonId();
 
-                                RadioButton rbEstadoUtente = (RadioButton) mView.findViewById(selectedEstadoUtente);
+                                if (selectedEstadoUtente == -1) {
+                                    Toast.makeText(getApplicationContext(), "Preencha todos os campos", Toast.LENGTH_LONG).show();
+                                    rgMetodoPF.clearCheck();
+                                } else {
+                                    RadioButton rbEstadoUtente = (RadioButton) mView.findViewById(selectedEstadoUtente);
 
-                                String estadoUsuario = rbEstadoUtente.getText().toString();
-                                String metodo = etNomedoMetodo.getText().toString();
-                                String tipoMetodo = "";
-                                int quantidadeDistribuida = Integer.parseInt(etdosesDistribuidas.getText().toString());
+                                    String estadoUsuario = rbEstadoUtente.getText().toString();
+                                    String metodo = etNomedoMetodo.getText().toString();
+                                    String tipoMetodo = "";
+                                    int quantidadeDistribuida = Integer.parseInt(etdosesDistribuidas.getText().toString());
 
-                                MetodoSelecionado metodoSelecionado = new MetodoSelecionado(estadoUsuario, metodo, tipoMetodo, quantidadeDistribuida);
-                                listMetodoSelecionado.add(metodoSelecionado);
+                                    MetodoSelecionado metodoSelecionado = new MetodoSelecionado(estadoUsuario, metodo, tipoMetodo, quantidadeDistribuida);
+                                    listMetodoSelecionado.add(metodoSelecionado);
+                                }
                             }
                         })
                 .setNegativeButton("Cancelar",
@@ -1159,7 +1184,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
        // Util.showMessage(this, "Consulta", getConsultaPF().toString());
 
         //String key = mDatabase.child("consulta-de-pf").push().getKey();
-       // if (getConsultaPF().isRequiredFilled()) {
+        if (getConsultaPF().isRequiredFilledF()) {
             consultaPF_id = mDatabase.child("consulta").push().getKey();
             Map<String, Object> postValues = getConsultaPF().toMap();
 
@@ -1184,7 +1209,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Util.showMessage(this, "Status de Registo", "Sessão registada com sucesso!");
             Intent intent = new Intent(this, ListaActivity.class);
             startActivity(intent);
-       /* }else
+        }else
             Util.showMessage(this, "Status de Registo", getConsultaPF().getMSGRequired());
 
        // }else{

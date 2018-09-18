@@ -62,7 +62,7 @@ public class MeusRegistosAdapter extends RecyclerView.Adapter<MeusRegistosAdapte
         // - replace the contents of the view with that element
         holder.tvNomeUtente.setText(mDataset.get(position).getNome());
         holder.tvNIDCSR.setText("NID CDR/PF: "+mDataset.get(position).getNid_csr_pf());
-        holder.tvNIDTARV.setText("NID TARV: "+mDataset.get(position).getNid_csr_pf());
+        holder.tvNIDTARV.setText("NID TARV: "+mDataset.get(position).getNid_tarv());
         holder.tvCodigo.setText("Codigo: "+codigoConsulta);
 
         holder.cvRegistoSessao.setOnClickListener(new View.OnClickListener() {

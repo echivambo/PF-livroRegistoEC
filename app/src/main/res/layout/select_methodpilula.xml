@@ -72,6 +72,13 @@
         <!-- android:onClick="onRadioButtonClicked"/> -->
 
         <RadioButton
+            android:id="@+id/rbZarin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Zarin"/>
+        <!-- android:onClick="onRadioButtonClicked"/> -->
+
+        <RadioButton
             android:id="@+id/rOutraPilula"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -103,6 +110,7 @@
             android:id="@+id/etCiclosDistribuidos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:hint="№ de ciclos"
             android:inputType="number"
             android:maxLines="1"

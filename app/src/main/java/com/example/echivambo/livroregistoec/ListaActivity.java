@@ -66,7 +66,9 @@ public class ListaActivity extends AppCompatActivity {
 
             Query query = FirebaseDatabase.getInstance().getReference("consulta")
                     .orderByChild("user_id")
-                    .equalTo(LoginActivity.user_id.toLowerCase());
+                    //.orderByChild("codigo_consulta")
+                    .equalTo(LoginActivity.user_id.toLowerCase())
+                    .limitToLast(25);
             query.addListenerForSingleValueEvent(valueEventListener);
 
         }catch (Exception e){

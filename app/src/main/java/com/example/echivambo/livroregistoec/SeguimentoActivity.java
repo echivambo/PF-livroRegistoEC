@@ -119,7 +119,8 @@ public class SeguimentoActivity extends AppCompatActivity {
                         Query query = FirebaseDatabase.getInstance().getReference("consulta")
                                 .orderByChild("nome")
                                 .startAt(nome)
-                                .endAt(nome + "\uf8ff");
+                                .endAt(nome + "\uf8ff")
+                                .limitToLast(15);
                         query.addListenerForSingleValueEvent(valueEventListener);
                     }
                 }catch (NullPointerException e){

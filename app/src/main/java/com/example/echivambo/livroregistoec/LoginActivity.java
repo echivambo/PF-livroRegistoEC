@@ -256,6 +256,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         }catch (Exception e){
+            progressDialog.dismiss();
             Toast.makeText(this, "Por favor preencha os campos", Toast.LENGTH_LONG).show();
         }
     }

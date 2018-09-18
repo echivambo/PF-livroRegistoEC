@@ -517,16 +517,25 @@ public class ConsultaPF implements Parcelable{
           parcel.writeString(user_id);
      }
 
-     public Boolean isRequiredFilled() {
-          if (
-                  this.numero_consulta == 0 ||
-                      //    this.data_consulta.isEmpty() ||
-                          this.nid_csr_pf.isEmpty()||
-                          this.sexo.isEmpty() ||
-                          this.faixa_etaria.isEmpty() ||
-                          this.nome.isEmpty()
+     public Boolean isRequiredFilledF() {
+          Boolean achou = true;
 
-                  )return false; else return true;
+          if(this.numero_consulta == 0)
+               achou = false;
+
+          if(this.nid_csr_pf.isEmpty() || this.nid_csr_pf == null)
+               achou = false;
+
+          if(this.nome.isEmpty() || this.nome == null)
+               achou = false;
+
+          if(this.sexo.isEmpty() || this.sexo == null)
+               achou = false;
+
+          if(this.faixa_etaria.isEmpty() || this.faixa_etaria == null)
+               achou = false;
+
+          return achou;
      }
 
      public String getMSGRequired() {
@@ -537,16 +546,16 @@ public class ConsultaPF implements Parcelable{
           if(this.numero_consulta == 0)
                msg+="Número da consulta;\n";
 
-          if(this.nid_csr_pf != "" || this.nid_csr_pf != null)
+          if(this.nid_csr_pf.isEmpty() || this.nid_csr_pf == null)
                msg+="NID CSR/PF;\n";
 
-          if(this.nome != "" || this.nome != null)
+          if(this.nome.isEmpty() || this.nome == null)
                msg+="Nome;\n";
 
-          if(this.sexo != "" || this.sexo != null)
+          if(this.sexo.isEmpty() || this.sexo == null)
                msg+="Sexo;\n";
 
-          if(this.faixa_etaria != "" || this.faixa_etaria != null)
+          if(this.faixa_etaria.isEmpty() || this.faixa_etaria == null)
                msg+="Faixa etária;\n";
 
          return msg;
