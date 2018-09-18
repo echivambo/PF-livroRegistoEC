@@ -618,6 +618,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     .setNegativeButton("Cancelar",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
+                                    cbPreservativo.setChecked(false);
+                                    cbPreservativo.setText("Edson");
                                     dialog.cancel();
                                 }
                             });
