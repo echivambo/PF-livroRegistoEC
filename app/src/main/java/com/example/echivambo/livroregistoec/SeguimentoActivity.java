@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.echivambo.livroregistoec.adapter.MyAdapter;
+import com.example.echivambo.livroregistoec.config.Config;
 import com.example.echivambo.livroregistoec.model.Cabecalho;
 import com.example.echivambo.livroregistoec.model.ConsultaPF;
 import com.example.echivambo.livroregistoec.model.auxiliar.UtentePF;
@@ -169,6 +170,7 @@ public class SeguimentoActivity extends AppCompatActivity {
        // mAdapter
     }
 
+
     ValueEventListener valueEventListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -181,6 +183,7 @@ public class SeguimentoActivity extends AppCompatActivity {
                 }
             }
             mAdapter.notifyDataSetChanged();
+            lista = Util.removDuplicate(lista);
         }
 
         @Override
@@ -199,6 +202,7 @@ public class SeguimentoActivity extends AppCompatActivity {
     }
 
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle app bar item clicks here. The app bar will
@@ -210,7 +214,15 @@ public class SeguimentoActivity extends AppCompatActivity {
             //  case android.R.id.home:
             //    finish();
             //   return true;
+            case R.id.action_sync:
+                //displayToast("Sincronizar");
 
+                Intent intent = new Intent(this, ListaActivity.class);
+                startActivity(intent);
+
+
+
+                return true;
 
             case R.id.action_about: {
                 Util.showMessage(this, "About", "Aqui virá uma breve descrição do aplicativo");
@@ -227,19 +239,23 @@ public class SeguimentoActivity extends AppCompatActivity {
             case R.id.action_relatio:
                 //         Intent intent = new Intent(this, SettingsActivity.class);
                 //     startActivity(intent);
-                //      return true;
 
+                Util.showMessage(this, "Meu Relatório", "Brevimente\n \n \t\t\t\t\t\t\t\t\tMeu relatório...");
+                return true;
 
             case android.R.id.home:
                 // app icon in action bar clicked; go home
                 Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivityForResult(myIntent, 0);
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
 
             // Do nothing
         }
+
+
 
     }
 
@@ -286,7 +302,13 @@ public class SeguimentoActivity extends AppCompatActivity {
         return super.dispatchTouchEvent(ev);
     }
 
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = Config.getUI();
+        Config.updateUI(currentUser, SeguimentoActivity.this);
+    }
 }
 
 

@@ -51,6 +51,7 @@ import com.example.echivambo.livroregistoec.model.auxiliar.MetodoSelecionado;
 import com.example.echivambo.livroregistoec.util.Util;
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -1030,6 +1031,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_ios_white_18);
             toolbar.setNavigationOnClickListener(this);
+
+
         }
 
         @Override
@@ -1038,6 +1041,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
+
+
 
     public void displayToast(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
@@ -1219,6 +1224,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
             */
        // }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = Config.getUI();
+        Config.updateUI(currentUser, MainActivity.this);
     }
 
 }

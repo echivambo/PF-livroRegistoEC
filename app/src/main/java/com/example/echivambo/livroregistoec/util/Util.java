@@ -8,10 +8,15 @@ import android.content.Intent;
 import android.widget.EditText;
 
 import com.example.echivambo.livroregistoec.LoginActivity;
+import com.example.echivambo.livroregistoec.config.Config;
+import com.example.echivambo.livroregistoec.model.ConsultaPF;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 
@@ -67,11 +72,26 @@ public class Util {
 
                     public void onClick(DialogInterface arg0, int arg1) {
                         FirebaseAuth.getInstance().signOut();
-                        LoginActivity.user = null;
+                        Config.updateUI(null, context);
                         Intent intencion = new Intent(context, LoginActivity.class);
                         activity.startActivity(intencion);
                     }
 
                 }).create().show();
     }
+
+
+    public static ArrayList<ConsultaPF> removDuplicate(ArrayList<ConsultaPF> list){
+        for (int i=0; i<list.size(); i++)
+            for (int j=0; j<list.size(); j++){
+                if (list.get(i).getNome().equalsIgnoreCase(list.get(j).getNome())){
+                    if(list.get(i).getNumero_consulta() < list.get(j).getNumero_consulta())
+                        list.remove(list.get(i));
+                    else
+                        list.remove(list.get(j));
+                }
+            }
+        return list;
+    }
+
 }

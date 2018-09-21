@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -20,9 +21,11 @@ import android.widget.Toast;
 
 import com.example.echivambo.livroregistoec.adapter.MeusRegistosAdapter;
 import com.example.echivambo.livroregistoec.adapter.MyAdapter;
+import com.example.echivambo.livroregistoec.config.Config;
 import com.example.echivambo.livroregistoec.model.ConsultaPF;
 import com.example.echivambo.livroregistoec.util.Util;
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +34,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ListaActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -101,6 +105,8 @@ public class ListaActivity extends AppCompatActivity {
                     lista.add(consultaPF);
                     System.out.println(consultaPF.toString());
                 }
+                Collections.reverse(lista);
+                lista = Util.removDuplicate(lista);
             }
             mAdapter.notifyDataSetChanged();
         }
@@ -110,36 +116,6 @@ public class ListaActivity extends AppCompatActivity {
 
         }
     };
-
-    private ArrayList<ConsultaPF> getConsultaPF() {
-        final ArrayList<ConsultaPF> lista = new ArrayList<>();
-
-        mDatabase.child("consulta").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                lista.clear();
-                for (DataSnapshot obj: dataSnapshot.getChildren()){
-                    ConsultaPF consultaPF = obj.getValue(ConsultaPF.class);
-                    lista.add(consultaPF);
-                    System.out.println(consultaPF.toString());
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        return lista;
-    }
-
-
-    /*public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-
-        return true;
-
-    }*/
 
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -185,8 +161,12 @@ public class ListaActivity extends AppCompatActivity {
 
             case android.R.id.home:
                 // app icon in action bar clicked; go home
-                Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivityForResult(myIntent, 0);
+
+
+            Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+             startActivityForResult(myIntent, 0);
+             //  onBackPressed();
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -195,6 +175,26 @@ public class ListaActivity extends AppCompatActivity {
         }
 
     }
+
+   // @Override
+   // public void onBackPressed() {
+
+        // Check your mode in onBackPressed
+      //  if(mode.equals("edit")){
+
+            // Launch the intent
+         //   Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+        //    // startActivityForResult(myIntent, 0);
+
+            // else call to the super class method, for default behavior
+   //     }else{
+       //     super.onBackPressed();
+     //   }
+  //  }
+
+
+
+
     public class ToolbarConfigurer implements View.OnClickListener {
         private Activity activity;
 
@@ -215,5 +215,15 @@ public class ListaActivity extends AppCompatActivity {
 
     public void displayToast(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = Config.getUI();
+        Config.updateUI(currentUser, ListaActivity.this);
     }
 }

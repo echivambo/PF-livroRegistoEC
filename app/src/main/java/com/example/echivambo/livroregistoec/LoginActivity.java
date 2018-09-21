@@ -40,6 +40,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.echivambo.livroregistoec.config.Config;
+import com.example.echivambo.livroregistoec.model.ConsultaPF;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -233,7 +235,7 @@ public class LoginActivity extends AppCompatActivity {
                                         // Sign in success, update UI with the signed-in user's information
                                         Log.d("Login", "signInWithEmail:success");
                                         FirebaseUser user = mAuth.getCurrentUser();
-                                        //updateUI(user);
+                                        Config.updateUI(mAuth.getCurrentUser(), LoginActivity.this);
                                         startActivity(new Intent(LoginActivity.this, SeguimentoActivity.class));
                                         finish();
                                     } else {
@@ -243,7 +245,7 @@ public class LoginActivity extends AppCompatActivity {
                                         Log.w("Login", "signInWithEmail:failure", task.getException());
                                         Toast.makeText(LoginActivity.this, "Email e/ou senha incorretos.",
                                                 Toast.LENGTH_SHORT).show();
-                                        //updateUI(null);
+                                        Config.updateUI(null,  LoginActivity.this);
                                     }
 
                                     // ...
@@ -434,14 +436,14 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("EC Ciar usuario", "createUserWithEmail:success");
                              user = mAuth.getCurrentUser();
-                            //updateUI(user);
+                                Config.updateUI(user, getApplicationContext());
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("Criar Usuario", "createUserWithEmail:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                                 user = null;
-                            //updateUI(null);
+                            Config.updateUI(null, getApplicationContext());
                         }
 
                         // ...
@@ -491,7 +493,7 @@ public class LoginActivity extends AppCompatActivity {
         return super.dispatchTouchEvent(ev);
     }
 
-    @Override
+ /*   @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this)
                 .setTitle("Fechar aplicativo?")
@@ -507,6 +509,17 @@ public class LoginActivity extends AppCompatActivity {
 
                 }).create().show();
     }
+    */
+/*
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        Config.updateUI(currentUser, getApplicationContext());
+    }
+    */
+
 }
 
 

@@ -3,6 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".SeguimentoActivity">
+
+    <item
+
+        android:id="@+id/action_sync"
+        android:orderInCategory="40"
+        android:title="Meus registos"
+        android:icon="@drawable/baseline_sync_white_36"
+        app:showAsAction="ifRoom" />
+
     <item
         android:id="@+id/action_about"
         android:orderInCategory="100"
