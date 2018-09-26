@@ -431,7 +431,7 @@ public class ConsultaPF implements Parcelable{
           result.put("resultado_do_teste_feito_na_csr_pf", resultado_do_teste_feito_na_csr_pf);
           result.put("tratamento_do_utente_dose_recebida", tratamento_do_utente_dose_recebida);
           result.put("parceiro_recebeu_tratamento_na_csr_pf", parceiro_recebeu_tratamento_na_csr_pf);
-          result.put("transferida_por", transferida_por_para);
+          result.put("transferida_por_para", transferida_por_para);
           result.put("observacao", observacao);
           result.put("user_id", user_id);
 

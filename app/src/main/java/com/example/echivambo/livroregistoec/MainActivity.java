@@ -991,10 +991,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return true;
             }
             case R.id.action_relatio:
-                //         Intent intent = new Intent(this, SettingsActivity.class);
-                //     startActivity(intent);
+                Intent intent1 = new Intent(this, MeuRelatorioActivity.class);
+                startActivity(intent1);
 
-                Util.showMessage(this, "Meu Relatório", "Brevimente\n \n \t\t\t\t\t\t\t\t\tMeu relatório...");
+                //Util.showMessage(this, "Meu Relatório", "Brevimente\n \n \t\t\t\t\t\t\t\t\tMeu relatório...");
                 return true;
 
             case android.R.id.home:
@@ -1067,7 +1067,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ConsultaPF consultaPF = new ConsultaPF();
         try {
             String codigo_consulta = gerarCodigoConsulta();
-            String user_id = LoginActivity.user_id+"";
+            String user_id = LoginActivity.user_id.toLowerCase();
 
             /*</CABECALHP>*/
             String parceiro_presente_na_csr_pf = getRBSelectedFromGroup(rgParceiro_presente_na_csr_pf);

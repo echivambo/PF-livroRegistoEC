@@ -30,18 +30,20 @@
         </activity>
         <activity
             android:name=".SeguimentoActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:parentActivityName=".MainActivity" >
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".ListaActivity"
+            android:parentActivityName=".MainActivity"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ListaActivity"
+            android:windowSoftInputMode="stateAlwaysHidden">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MeuRelatorioActivity"></activity>
     </application>
 
 </manifest>

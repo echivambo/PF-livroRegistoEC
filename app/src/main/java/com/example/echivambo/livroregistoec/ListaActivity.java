@@ -157,6 +157,9 @@ public class ListaActivity extends AppCompatActivity {
                 //         Intent intent = new Intent(this, SettingsActivity.class);
                 //     startActivity(intent);
                 //      return true;
+                Intent intent1 = new Intent(this, MeuRelatorioActivity.class);
+                startActivity(intent1);
+                return true;
 
 
             case android.R.id.home:

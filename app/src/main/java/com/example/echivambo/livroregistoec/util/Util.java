@@ -83,7 +83,7 @@ public class Util {
 
     public static ArrayList<ConsultaPF> removDuplicate(ArrayList<ConsultaPF> list){
         for (int i=0; i<list.size(); i++)
-            for (int j=0; j<list.size(); j++){
+            for (int j=1; j<list.size(); j++){
                 if (list.get(i).getNome().equalsIgnoreCase(list.get(j).getNome())){
                     if(list.get(i).getNumero_consulta() < list.get(j).getNumero_consulta())
                         list.remove(list.get(i));

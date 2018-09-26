@@ -237,10 +237,10 @@ public class SeguimentoActivity extends AppCompatActivity {
                 return true;
             }
             case R.id.action_relatio:
-                //         Intent intent = new Intent(this, SettingsActivity.class);
-                //     startActivity(intent);
+                Intent intent1 = new Intent(this, MeuRelatorioActivity.class);
+                startActivity(intent1);
 
-                Util.showMessage(this, "Meu Relatório", "Brevimente\n \n \t\t\t\t\t\t\t\t\tMeu relatório...");
+                //Util.showMessage(this, "Meu Relatório", "Brevimente\n \n \t\t\t\t\t\t\t\t\tMeu relatório...");
                 return true;
 
             case android.R.id.home:
