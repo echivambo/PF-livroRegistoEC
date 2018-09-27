@@ -20,7 +20,7 @@ public class MeuRelatorioActivity extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);
 
         //myWebView.loadUrl("http://localhost/firebase-sync-mariadb/bWV1IHJlbGF0b3Jpb0A=ZWRzb24gY2hpdmFtYm8=/");
-        myWebView.loadUrl("https://www.evidencias.psi.org.mz/meurelatorio/");
+        myWebView.loadUrl("https://www.evidencias.psi.org.mz/livro/public/meu-relatorio");
         //myWebView.loadUrl("http://psi.evidevi.com/powerbi/public/login");
 
         myWebView.setWebViewClient(new WebViewClient() {
