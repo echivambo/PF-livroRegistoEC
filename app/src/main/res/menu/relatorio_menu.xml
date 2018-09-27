@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MeuRelatorioActivity">
+    <item
+        android:id="@+id/action_about"
+        android:orderInCategory="100"
+        android:title="About"
+        app:showAsAction="never" />
+    <item
+
+        android:id="@+id/action_legal"
+        android:orderInCategory="150"
+        android:title="Legal"
+        app:showAsAction="never" />
+
+    <item
+
+        android:id="@+id/action_sair"
+        android:orderInCategory="200"
+        android:title="Sair"
+        app:showAsAction="never" />
+
+
+    <item
+        android:id="@+id/action_novoregisto"
+        android:orderInCategory="50"
+        android:title="Novo Registo"
+        app:showAsAction="never" />
+</menu>
